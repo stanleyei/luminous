@@ -7,6 +7,48 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## 專案開發提醒
+
+### 初次開發需下指令
+- 複製 .env.example 檔案並命名為 .env
+  ```shell
+  cp .env.example .env
+  ```
+- 安裝PHP相依套件
+  ```shell
+  composer install
+  ```
+- 安裝JS相依套件
+  ```shell
+  npm install
+  ```
+- 產生專案金鑰
+  ```shell
+  php artisan key:generate
+  ```
+- 填充預設資料
+  ```shell
+  php artisan migrate:fresh --seed
+  ```
+
+### 開發相關指令如下
+- 啟動前端編譯
+  ```shell
+  npm run dev
+  ```
+- 啟動伺服器
+  ```shell
+  php artisan serve
+  ```
+- JS程式碼檢查+自動修正
+  ```shell
+  npm run lint
+  ```
+- PHP程式碼檢查及修正
+  ```shell
+  vendor/bin/phpcbf;vendor/bin/phpcs
+  ```
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
