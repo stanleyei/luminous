@@ -8,6 +8,7 @@ module.exports = {
     'plugin:vue/vue3-essential',
     'plugin:vuejs-accessibility/recommended',
   ],
+  'ignorePatterns': ['ziggy', '**/*.ts'],
   'overrides': [
     {
       'env': {

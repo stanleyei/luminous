@@ -1,3 +1,34 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 隱藏input的number類型的增加減少按鈕 */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* 後台頁面容器 */
+.backend-container {
+  @apply max-w-7xl mx-auto py-6 space-y-6;
+}
+
+/* 後台卡片容器樣式 */
+.backend-card-container {
+  @apply relative overflow-x-auto flex flex-col gap-4 mx-auto sm:p-8 p-4 sm:rounded-lg bg-white shadow-sm;
+}
+
+/* 後台表格樣式 */
+.backend-table-border {
+  @apply overflow-x-auto border-[#676767] rounded-[5px] text-xl;
+}
+
+/* 後台表格內容格樣式 */
+.backend-table-th {
+  @apply border dark:border-gray-700 px-2 py-3;
+}
+
+.backend-table-td {
+  @apply border dark:border-gray-700 px-2 py-2;
+}

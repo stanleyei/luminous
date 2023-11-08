@@ -12,6 +12,21 @@ export default {
 
   theme: {
     extend: {
+      colors: {
+        'main-skin': '#FFEBDC',
+        'main-white-gray': '#D7D2CE',
+        'main-light-gray': '#7E7E7E',
+        'main-gray': '#404040',
+        'main-middle-gray': '#2E2E2E',
+        'main-dark-gray': '#212121',
+        'main-black': '#0D0D0D',
+        'main-blue': '#2A79BE',
+        'main-light-blue': '#3A95C1',
+        'main-light-green': '#509D50',
+        'main-dark-green': '#2A3E3E',
+        'main-light-red': '#E46278',
+        'main-brown': '#795642',
+      },
       fontFamily: {
         sans: ['Microsoft JhengHei'],
       },
