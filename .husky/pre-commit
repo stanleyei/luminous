@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npx.cmd lint-staged
+vendor/bin/phpcbf;vendor/bin/phpcs
