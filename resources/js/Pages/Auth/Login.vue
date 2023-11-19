@@ -26,7 +26,7 @@ const submit = () => {
 
 <template>
   <GuestLayout>
-    <Head title="Log in" />
+    <Head title="登入" />
 
     <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
       {{ status }}
@@ -81,7 +81,7 @@ const submit = () => {
         </Link>
 
         <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-          Log in
+          登入
         </PrimaryButton>
       </div>
     </form>

@@ -27,6 +27,7 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
-        "pinia": "^2.1.7"
+        "pinia": "^2.1.7",
+        "tailwind-merge": "^2.0.0"
     }
 }
