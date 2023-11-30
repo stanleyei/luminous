@@ -26,9 +26,9 @@ input[type=number]::-webkit-inner-spin-button {
 
 /* 後台表格內容格樣式 */
 .backend-table-th {
-  @apply border dark:border-gray-700 px-2 py-3;
+  @apply border border-gray-700 px-2 py-3;
 }
 
 .backend-table-td {
-  @apply border dark:border-gray-700 px-2 py-2;
+  @apply border border-gray-700 px-2 py-2;
 }
