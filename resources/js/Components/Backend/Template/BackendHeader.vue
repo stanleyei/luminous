@@ -3,7 +3,7 @@
 <script setup>
 import { usePage } from '@inertiajs/vue3';
 import { menuLinks } from '@/Composables/useBackendRoute';
-import logoLuminous from '/images/logo/logo-luminous.png';
+import logoLuminous from '/images/logo/logo-luminous.svg';
 
 const showingNavigationDropdown = ref(false);
 const user = computed(() => usePage().props.auth.user);
@@ -11,11 +11,11 @@ const user = computed(() => usePage().props.auth.user);
 
 <template>
   <header id="backend-header">
-    <div class="flex justify-between items-center h-[65px] px-[28px]">
+    <div class="flex justify-between items-center h-[65px] md:pl-[28px] pl-3 pr-[28px]">
       <section class="flex items-center">
         <Link href="/" title="前往前台首頁(跳轉頁面)">
-          <h1>
-            <img :src="logoLuminous" alt="Luminous Logo" width="150" class="w-[150px]">
+          <h1 class="w-[150px] border-b border-transparent text-white transition-colors hover:border-white">
+            <img :src="logoLuminous" alt="Luminous Logo" width="150">
           </h1>
         </Link>
       </section>

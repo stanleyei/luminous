@@ -28,7 +28,7 @@ export default {
         'main-brown': '#795642',
       },
       fontFamily: {
-        sans: ['Microsoft JhengHei'],
+        sans: ['Noto Sans TC, sans-serif', 'Microsoft JhengHei'],
       },
     },
   },
