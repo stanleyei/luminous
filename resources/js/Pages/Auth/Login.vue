@@ -1,5 +1,4 @@
 <script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
 import { useForm } from '@inertiajs/vue3';
 
 defineProps({
@@ -25,7 +24,7 @@ const submit = () => {
 </script>
 
 <template>
-  <GuestLayout>
+  <div id="backend-login">
     <Head title="登入" />
 
     <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
@@ -85,5 +84,5 @@ const submit = () => {
         </PrimaryButton>
       </div>
     </form>
-  </GuestLayout>
+  </div>
 </template>

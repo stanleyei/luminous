@@ -1,5 +1,4 @@
 <script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
 import { useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
@@ -18,7 +17,7 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
 </script>
 
 <template>
-  <GuestLayout>
+  <div>
     <Head title="Email Verification" />
 
     <div class="mb-4 text-sm text-gray-600">
@@ -45,5 +44,5 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
         >
       </div>
     </form>
-  </GuestLayout>
+  </div>
 </template>

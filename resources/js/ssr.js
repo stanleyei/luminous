@@ -5,6 +5,7 @@ import createServer from '@inertiajs/vue3/server';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import { createPinia } from 'pinia';
+import AppLayout from '@/Layouts/AppLayout.vue';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Luminous';
 const pinia = createPinia();
@@ -14,7 +15,11 @@ createServer((page) =>
     page,
     render: renderToString,
     title: (title) => title ? `${title} - ${appName}` : appName,
-    resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
+    resolve: (name) => {
+      const pages = resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue'));
+      pages.then(module => module.default.layout = AppLayout);
+      return pages;
+    },
     setup({ App, props, plugin }) {
       const Ziggy = {
         ...page.props.ziggy,

@@ -41,6 +41,8 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
+        "@tinymce/tinymce-vue": "^5.1.1",
+        "@vuepic/vue-datepicker": "^7.3.0",
         "pinia": "^2.1.7",
         "tailwind-merge": "^2.0.0"
     }

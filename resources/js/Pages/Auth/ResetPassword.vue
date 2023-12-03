@@ -1,5 +1,4 @@
 <script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
 import { useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
@@ -28,7 +27,7 @@ const submit = () => {
 </script>
 
 <template>
-  <GuestLayout>
+  <div>
     <Head title="Reset Password" />
 
     <form @submit.prevent="submit">
@@ -84,5 +83,5 @@ const submit = () => {
         </PrimaryButton>
       </div>
     </form>
-  </GuestLayout>
+  </div>
 </template>
