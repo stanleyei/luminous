@@ -1,6 +1,4 @@
 <script setup>
-import { twMerge } from 'tailwind-merge';
-
 const props = defineProps({
   type: {
     type: String,
@@ -18,7 +16,6 @@ const props = defineProps({
 
 const colorClass = computed(() => {
   const classList = {
-    white: 'border-gray-800 hover:bg-gray-100 focus:bg-gray-100 active:bg-gray-200 focus:ring-gray-100 text-gray-800',
     blue: 'bg-blue-600 hover:bg-blue-500 focus:bg-blue-500 active:bg-blue-700 focus:ring-blue-500',
     green: 'bg-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700 focus:ring-green-500',
     red: 'bg-red-600 hover:bg-red-500 focus:bg-red-500 active:bg-red-700 focus:ring-red-500',
@@ -36,7 +33,8 @@ const colorClass = computed(() => {
 <template>
   <button
     :type="props.type"
-    :class="twMerge('relative inline-flex items-center px-3 py-1 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150', colorClass)"
+    class="relative inline-flex items-center px-3 py-1 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150"
+    :class="colorClass"
   >
     <slot />
   </button>

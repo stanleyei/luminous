@@ -21,7 +21,7 @@ input[type=number]::-webkit-inner-spin-button {
 
 /* 後台表格樣式 */
 .backend-table-border {
-  @apply overflow-x-auto border-[#676767] rounded-[5px] text-xl;
+  @apply overflow-x-auto rounded-[5px] text-xl;
 }
 
 /* 後台表格內容格樣式 */

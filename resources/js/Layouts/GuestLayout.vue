@@ -1,5 +1,5 @@
 <script setup>
-import logoLuminous from '/images/logo-luminous.png';
+import logoLuminous from '/images/logo/logo-luminous.png';
 </script>
 
 <template>

@@ -4,7 +4,7 @@ const emit = defineEmits(['update:checked']);
 const props = defineProps({
   checked: {
     type: [Array, Boolean],
-    required: true,
+    default: false,
   },
   value: {
     default: null,
