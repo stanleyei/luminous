@@ -18,7 +18,7 @@ export const useParamsStore = defineStore('table-params', {
 
       const data = {
         ...this.sortKey,
-        keywords: this.keywords,
+        q: this.keywords,
       };
 
       const currentRouteName = route()?.current() ?? '';
@@ -34,7 +34,7 @@ export const useParamsStore = defineStore('table-params', {
      */
     getUrlKeywords() {
       const params = new URL(document.location.href)?.searchParams;
-      const keywords = params?.get('keywords') ?? '';
+      const keywords = params?.get('q') ?? '';
       return keywords;
     },
 

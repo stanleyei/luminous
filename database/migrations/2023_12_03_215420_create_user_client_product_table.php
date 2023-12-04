@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('user_client_product', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_client_id')->constrained('user_clients')->onDelete('cascade')->comment('使用者id');
-            $table->foreignId('product_id')->constrained('products')->onDelete('cascade')->comment('產品id');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade')->comment('商品id');
             $table->unsignedTinyInteger('status')->default(1)->comment('狀態(1:加入拍賣,2:得標,3:未得標)');
             $table->unsignedInteger('bid_price')->comment('出價金額');
             $table->timestamps();

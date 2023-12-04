@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('product_photos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained('products')->onDelete('cascade')->comment('產品id');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade')->comment('商品id');
             $table->string('photo_path')->comment('圖片路徑');
             $table->string('photo_alt')->comment('圖片說明');
             $table->timestamps();

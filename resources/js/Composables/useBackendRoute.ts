@@ -1,12 +1,12 @@
 // 用於後台選單的路由
 const menuLinks = Object.freeze([
   {
-    id: 'groups',
-    name: '產品管理',
+    id: 'products',
+    name: '商品管理',
     path: 'dashboard',
   },
   {
-    id: 'reports',
+    id: 'clients',
     name: '客戶管理',
     path: 'dashboard',
   },
