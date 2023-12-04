@@ -13,7 +13,7 @@ const menuLinks = Object.freeze([
   {
     id: 'banners',
     name: '橫幅管理',
-    path: 'dashboard',
+    path: 'banner.list',
   },
 ]);
 

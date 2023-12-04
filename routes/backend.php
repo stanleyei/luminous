@@ -2,6 +2,7 @@
 
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\ProductController;
 
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
@@ -30,5 +31,15 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
         Route::delete('destroy', [ProductController::class, 'destroy'])->name('product.destroy');
         // 上傳商品照片
         Route::post('upload-photo', [ProductController::class, 'uploadPhoto'])->name('product.upload');
+    });
+
+    // 後台 Banner 管理
+    Route::prefix('banner')->group(function () {
+        // 後台 Banner 管理列表頁
+        Route::get('/', [BannerController::class, 'index'])->name('banner.list');
+        // 後台 Banner 管理編輯頁
+        Route::get('edit', [BannerController::class, 'edit'])->name('banner.edit');
+        // 更新 Banner
+        Route::put('update', [BannerController::class, 'update'])->name('banner.update');
     });
 });
