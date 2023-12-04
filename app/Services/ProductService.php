@@ -211,7 +211,7 @@ class ProductService
                     'photo_alt' => $objPhoto->photo_alt,
                 ]);
             } else {
-                $productData->eventPhotos()->create([
+                $productData->productPhotos()->create([
                     'photo_path' => $objPhoto->photo_path,
                     'photo_alt' => $objPhoto->photo_alt,
                 ]);

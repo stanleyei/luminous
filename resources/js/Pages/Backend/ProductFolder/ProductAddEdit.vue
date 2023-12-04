@@ -24,9 +24,11 @@ setBreadcrumb([
 const form = useForm({
   id: productData.value.id ?? 0,
   type: productData.value.type ?? '',
-  title: productData.value.title ?? '',
-  title_en: productData.value.title_en ?? '',
-  date: productData.value.date ?? '',
+  name: productData.value.name ?? '',
+  start_time: productData.value.start_time ?? '',
+  end_time: productData.value.end_time ?? '',
+  price: productData.value.price ?? '',
+  description: productData.value.description ?? '',
   cover_photo_index: productData.value.cover_photo_index ?? 0,
 });
 
@@ -63,6 +65,7 @@ const alertParam = Object.freeze({
 // 日期選擇器其他參數
 const otherOption = Object.freeze({
   'format': 'yyyy-MM-dd HH:mm',
+  'enable-time-picker': true,
   'auto-apply': true,
 });
 
@@ -120,9 +123,11 @@ const submit = async () => {
   const data = {
     id: form.id,
     type: form.type,
-    title: form.title,
-    title_en: form.title_en,
-    date: form.date,
+    name: form.name,
+    start_time: form.start_time,
+    end_time: form.end_time,
+    price: form.price,
+    description: form.description,
     cover_photo_index: form.cover_photo_index,
     photos: [...filterPhotos.value.file],
     delete_photo_ids: deletePhotoIds.value,
@@ -158,37 +163,21 @@ const submit = async () => {
       <form @submit.prevent="useAlert(alertParam)" class="flex flex-col justify-between gap-6 min-h-[50dvh]">
         <div class="space-y-6">
           <div class="grid grid-cols-2 gap-6">
-            <!-- 相簿名稱欄位 -->
+            <!-- 商品名稱欄位 -->
             <div>
-              <InputLabel for="title" value="相簿名稱" required />
+              <InputLabel for="name" value="商品名稱" required />
               <TextInput
-                id="title"
-                v-model="form.title"
+                id="name"
+                v-model="form.name"
                 type="text"
                 class="mt-1 block w-full"
-                maxlength="255"
-                placeholder="請輸入相簿名稱"
+                maxlength="100"
+                placeholder="請輸入商品名稱"
                 required
               />
-              <InputError :message="form.errors.title" class="mt-2" />
+              <InputError :message="form.errors.name" class="mt-2" />
             </div>
 
-            <!-- 相簿英文名稱欄位 -->
-            <div>
-              <InputLabel for="title-en" value="相簿英文名稱" />
-              <TextInput
-                id="title-en"
-                v-model="form.title_en"
-                type="text"
-                class="mt-1 block w-full"
-                maxlength="255"
-                placeholder="請輸入相簿英文名稱"
-              />
-              <InputError :message="form.errors.title_en" class="mt-2" />
-            </div>
-          </div>
-
-          <div class="grid grid-cols-2 gap-6">
             <!-- 類型欄位 -->
             <div>
               <InputLabel for="type" value="類型" required />
@@ -200,29 +189,72 @@ const submit = async () => {
               >
                 <option value="" hidden>請選擇類型</option>
                 <option v-for="typeOption in productTypeOption" :key="typeOption.id" :value="typeOption.id">
-                  {{ typeOption.zh }}
+                  {{ typeOption.name }}
                 </option>
               </SelectOption>
               <InputError :message="form.errors.type" class="mt-2" />
             </div>
+          </div>
 
-            <!-- 日期欄位 -->
+          <div class="grid grid-cols-2 gap-6">
+            <!-- 開始時間欄位 -->
             <div class="relative">
-              <InputLabel for="date" value="日期" required />
+              <InputLabel for="start-time" value="開始時間" required />
               <DatePicker
-                :init-date="form.date"
+                :init-date="form.start_time"
                 :other-option="otherOption"
                 class="mt-1"
-                @update="(date) => form.date = date"
+                @update="(date) => form.start_time = date"
               />
-              <input v-model="form.date" type="text" class="absolute z-[-1] bottom-0 left-1/2 w-px h-px opacity-0" required>
-              <InputError :message="form.errors.date" class="mt-2" />
+              <input v-model="form.start_time" type="text" class="absolute z-[-1] bottom-0 left-1/2 w-px h-px opacity-0" required>
+              <InputError :message="form.errors.start_time" class="mt-2" />
+            </div>
+
+            <!-- 結束時間欄位 -->
+            <div class="relative">
+              <InputLabel for="end-time" value="結束時間" required />
+              <DatePicker
+                :init-date="form.end_time"
+                :other-option="otherOption"
+                class="mt-1"
+                @update="(date) => form.end_time = date"
+              />
+              <input v-model="form.end_time" type="text" class="absolute z-[-1] bottom-0 left-1/2 w-px h-px opacity-0" required>
+              <InputError :message="form.errors.end_time" class="mt-2" />
             </div>
           </div>
 
-          <!-- 活動照片欄位 -->
+          <div class="grid grid-cols-2 gap-6">
+            <!-- 商品價格欄位 -->
+            <div>
+              <InputLabel for="price" value="商品價格" required />
+              <TextInput
+                id="price"
+                v-model="form.price"
+                type="number"
+                class="mt-1 block w-full"
+                placeholder="請輸入最低價格"
+                required
+              />
+              <InputError :message="form.errors.price" class="mt-2" />
+            </div>
+          </div>
+
+          <!-- 商品描述欄位 -->
+          <div>
+            <InputLabel for="description" value="商品描述" />
+            <div class="h-[600px] mt-1">
+              <Editor
+                id="content"
+                v-model="form.description"
+              />
+            </div>
+            <InputError :message="form.errors.description" class="mt-2" />
+          </div>
+
+          <!-- 商品照片欄位 -->
           <div class="relative">
-            <InputLabel for="photo-cover" value="活動照片(建議比例為 16 : 9，建議尺寸為 1181 * 663 px)" required />
+            <InputLabel for="photo-cover" value="商品照片(建議比例為 16 : 9，建議尺寸為 1181 * 663 px)" required />
             <FileInput
               for-id="photo-cover"
               class="mt-1"
@@ -233,7 +265,7 @@ const submit = async () => {
             />
             <input v-model="tempPhoto" type="text" class="absolute z-[-1] bottom-0 w-px h-px opacity-0" required>
 
-            <!-- 活動照片 -->
+            <!-- 商品照片 -->
             <div v-if="tempPhoto.length" class="grid grid-cols-3 gap-3 mt-3">
               <figure v-for="(photo, index) in tempPhoto" :key="photo.id" class="relative">
                 <!-- 設為封面選項 -->
@@ -245,7 +277,7 @@ const submit = async () => {
                 <!-- 照片 -->
                 <img
                   :src="photo.photo_path"
-                  alt="活動照片"
+                  alt="商品照片"
                   class="h-[270px] object-cover rounded-md mt-1"
                 />
 
@@ -256,7 +288,7 @@ const submit = async () => {
                   class="mt-1 block w-full"
                   maxlength="255"
                   required
-                  placeholder="請輸入照片名稱/說明"
+                  placeholder="請輸入商品照片名稱/說明"
                 />
 
                 <!-- 刪除照片按鈕 -->

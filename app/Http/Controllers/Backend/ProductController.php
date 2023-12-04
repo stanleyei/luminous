@@ -17,8 +17,8 @@ class ProductController extends Controller
         $this->validateRule = [
             'type' => 'required|integer|between:1,3',
             'name' => 'required|string|max:255',
-            'start_time' => 'required|date|date_format:Y-m-d H:i',
-            'end_time' => 'required|date|date_format:Y-m-d H:i|after:start_time',
+            'start_time' => 'required|date',
+            'end_time' => 'required|date|after:start_time',
             'price' => 'required|integer|min:0|max:9999999',
             'description' => 'string|max:65535',
             'cover_photo_index' => 'required|integer|min:0',
@@ -45,7 +45,7 @@ class ProductController extends Controller
     // 前往後台商品管理新增編輯頁
     public function edit(Request $request)
     {
-        $id = $request->id ?? 0;
+        $id = (int) $request->id ?? 0;
         $rtData = $this->productService->getProductData($id);
 
         return Inertia::render('Backend/ProductFolder/ProductAddEdit', $rtData);
@@ -58,7 +58,7 @@ class ProductController extends Controller
         $request->validate($this->validateRule);
 
         // Modal 參數
-        $modalParams = (object) [
+        $modalParams = [
             'type' => $request->type,
             'name' => $request->name,
             'start_time' => date('Y-m-d H:i:s', strtotime($request->start_time)),
@@ -88,7 +88,7 @@ class ProductController extends Controller
         ]);
 
         // Modal 參數
-        $modalParams = (object) [
+        $modalParams = [
             'id' => $request->id,
             'type' => $request->type,
             'name' => $request->name,
