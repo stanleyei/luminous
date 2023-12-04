@@ -63,11 +63,20 @@ const alertParam = Object.freeze({
 });
 
 // 日期選擇器其他參數
-const otherOption = Object.freeze({
+const otherOption = {
   'format': 'yyyy-MM-dd HH:mm',
   'enable-time-picker': true,
   'auto-apply': true,
-});
+};
+
+/**
+ * 設定開始時間
+ * @param {string} time 選擇的時間
+ */
+const setStartTime = (time) => {
+  form.start_time = time;
+  form.end_time = '';
+};
 
 /**
  * 將相片放入tempPhoto中
@@ -204,7 +213,7 @@ const submit = async () => {
                 :init-date="form.start_time"
                 :other-option="otherOption"
                 class="mt-1"
-                @update="(date) => form.start_time = date"
+                @update="setStartTime"
               />
               <input v-model="form.start_time" type="text" class="absolute z-[-1] bottom-0 left-1/2 w-px h-px opacity-0" required>
               <InputError :message="form.errors.start_time" class="mt-2" />
@@ -215,7 +224,7 @@ const submit = async () => {
               <InputLabel for="end-time" value="結束時間" required />
               <DatePicker
                 :init-date="form.end_time"
-                :other-option="otherOption"
+                :other-option="{ ...otherOption, 'min-date': form.start_time }"
                 class="mt-1"
                 @update="(date) => form.end_time = date"
               />
@@ -233,6 +242,7 @@ const submit = async () => {
                 v-model="form.price"
                 type="number"
                 class="mt-1 block w-full"
+                min="0"
                 placeholder="請輸入最低價格"
                 required
               />

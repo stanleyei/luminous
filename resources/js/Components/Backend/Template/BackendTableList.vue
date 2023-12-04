@@ -58,6 +58,8 @@ onMounted(() => {
 
     <!-- 表格區塊 -->
     <div class="overflow-y-auto">
+      <slot name="table-top" />
+
       <table class="w-full text-center">
         <thead>
           <tr>

@@ -3,6 +3,7 @@
 <script setup>
 import { router } from '@inertiajs/vue3';
 import { sendRequest } from '@/Composables/useRequest';
+import { twMerge } from 'tailwind-merge';
 
 const props = defineProps({
   response: Object,
@@ -10,6 +11,8 @@ const props = defineProps({
 
 const rtData = computed(() => props.response?.rt_data ?? {});
 const paginationData = computed(() => rtData.value.productData ?? {});
+const productTypeOption = computed(() => rtData.value.productTypeOption ?? []);
+const currentType = computed(() => rtData.value.currentType ?? 1);
 const stateSwitch = ref(false);
 
 // 設置麵包屑
@@ -64,6 +67,20 @@ const deleteProduct = (id) => {
             新增
           </PrimaryButton>
         </div>
+      </template>
+
+      <template #table-top>
+        <ul class="flex">
+          <li
+            v-for="typeOption in productTypeOption"
+            :key="typeOption.id"
+            :class="twMerge('border border-black border-b-0 first:rounded-tl last:rounded-tr transition-colors hover:bg-gray-300', currentType === typeOption.id && 'bg-gray-800 text-white hover:bg-gray-800')"
+          >
+            <Link :href="route('product.list', { type: typeOption.id })" class="block py-2 px-3">
+              {{ typeOption.name }}
+            </Link>
+          </li>
+        </ul>
       </template>
 
       <template #thead>

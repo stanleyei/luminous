@@ -30,7 +30,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $params = (object) [
-            'type' => (int) $request->type ?? 1,
+            'type' => (int) ($request->type ?? 1),
             'keywords' => $request->q ?? '',
             'sortStartTime' => $request->sortStartTime,
             'sortName' => $request->sortName,
@@ -45,7 +45,7 @@ class ProductController extends Controller
     // 前往後台商品管理新增編輯頁
     public function edit(Request $request)
     {
-        $id = (int) $request->id ?? 0;
+        $id = (int) ($request->id ?? 0);
         $rtData = $this->productService->getProductData($id);
 
         return Inertia::render('Backend/ProductFolder/ProductAddEdit', $rtData);
