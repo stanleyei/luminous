@@ -9,8 +9,8 @@ const props = defineProps({
 });
 
 const rtData = computed(() => props.response?.rt_data ?? {});
-const paginationData = computed(() => rtData.value.newsData ?? {});
-const topSwitch = ref(false);
+const paginationData = computed(() => rtData.value.productData ?? {});
+const stateSwitch = ref(false);
 
 // 設置麵包屑
 const { setBreadcrumb } = useBreadcrumbStore();
@@ -33,14 +33,14 @@ const goToAddEditPage = (id) => {
  * 設置上下架
  * @param {number} id 商品 id
  */
-const setTop = async (id) => {
-  topSwitch.value = true;
+const changeStatus = async (id) => {
+  stateSwitch.value = true;
   await sendRequest(route('product.status', { id }), 'put', {
     reload: false,
     response: false,
   });
 
-  topSwitch.value = false;
+  stateSwitch.value = false;
 };
 
 /**
@@ -91,7 +91,12 @@ const deleteProduct = (id) => {
       <template #tbody>
         <tr v-for="product in paginationData?.data ?? []" :key="product.id">
           <td class="backend-table-td break-all w-[370px]">
-            <img :src="product.cover_photo_path" :alt="eventAlbum.cover_photo_alt" width="356" class="h-[200px]">
+            <figure class="w-full aspect-video">
+              <img v-if="product.cover_photo_path" :src="product.cover_photo_path" :alt="product.cover_photo_alt" class="h-[200px] rounded-md" width="356">
+              <div v-else class="inset-0 flex items-center justify-center w-full h-[200px] text-gray-400 bg-gray-100 rounded-md text-2xl">
+                <span>尚未上傳圖片</span>
+              </div>
+            </figure>
           </td>
           <td class="backend-table-td break-all w-[120px]">
             {{ product.name }}
@@ -104,10 +109,10 @@ const deleteProduct = (id) => {
           </td>
           <td class="backend-table-td w-[230px]">
             <div class="flex gap-2 justify-center items-center">
-              <PrimaryButton type="button" class="px-0 bg-main-light-gray" :disabled="topSwitch" @click="setTop(product.id)">
-                <label :for="`top-check-${product.id}`" class="flex items-center gap-1 w-full cursor-pointer" :class="{ 'cursor-default': topSwitch }">
-                  <input :id="`top-check-${product.id}`" type="checkbox" class="rounded-md cursor-pointer text-main-light-gray" :checked="product.top" :disabled="topSwitch">
-                  置頂
+              <PrimaryButton type="button" class="px-0 bg-main-light-gray" :disabled="stateSwitch" @click="changeStatus(product.id)">
+                <label :for="`top-check-${product.id}`" class="flex items-center gap-1 w-full cursor-pointer" :class="{ 'cursor-default': stateSwitch }">
+                  <input :id="`top-check-${product.id}`" type="checkbox" class="rounded-md cursor-pointer text-main-light-gray" :checked="!!product.status" :disabled="stateSwitch">
+                  上下架
                 </label>
               </PrimaryButton>
               <PrimaryButton type="button" color="blue" @click="goToAddEditPage(product.id)">

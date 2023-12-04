@@ -39,7 +39,8 @@ class ProductService
         $productData->orderBy('created_at', 'desc');
 
         $data = [
-            'type' => $params->type,
+            'currentType' => $params->type,
+            'productTypeOption' => $this->productPresenter->getTypeOption(),
             'productData' => $productData->paginate(10)->through(function ($item) {
                 // 封面照片
                 $coverPhoto = $item->coverPhoto();
@@ -149,9 +150,10 @@ class ProductService
      * @param int $status 商品狀態
      * @return array
      */
-    public function updateStatus($id, $status)
+    public function updateStatus($id)
     {
         $productData = Product::select('id', 'status')->find($id);
+        $status = $productData->status ? 0 : 1;
         $productData->update(['status' => $status]);
 
         return ['message' => rtFormat($id)];
