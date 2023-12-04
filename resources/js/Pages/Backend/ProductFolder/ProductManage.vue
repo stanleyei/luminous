@@ -57,7 +57,7 @@ const deleteProduct = (id) => {
 
 <template>
   <div class="backend-container">
-    <BackendTableList :pagination-data="paginationData" placeholder="商品名稱" has-search>
+    <BackendTableList :pagination-data="paginationData" placeholder="商品名稱" has-search has-pagination>
       <template #top>
         <div class="flex gap-3">
           <PrimaryButton type="button" color="green" @click="goToAddEditPage(0)">
@@ -67,25 +67,25 @@ const deleteProduct = (id) => {
       </template>
 
       <template #thead>
-        <th scope="col" class="backend-table-th w-[370px]">
+        <th scope="col" class="backend-table-th min-w-[370px] w-[370px]">
           封面照片
         </th>
-        <th scope="col" class="backend-table-th w-[120px]">
+        <th scope="col" class="backend-table-th min-w-[200px]">
           <BackendThSortBtn sort-key="sortName">
             商品名稱
           </BackendThSortBtn>
         </th>
-        <th scope="col" class="backend-table-th w-[120px]">
+        <th scope="col" class="backend-table-th min-w-[180px] w-[180px]">
           <BackendThSortBtn sort-key="sortStartTime">
             開始時間
           </BackendThSortBtn>
         </th>
-        <th scope="col" class="backend-table-th">
+        <th scope="col" class="backend-table-th min-w-[120px] w-[120px]">
           <BackendThSortBtn sort-key="sortPrice">
             商品價格
           </BackendThSortBtn>
         </th>
-        <th scope="col" class="backend-table-th w-[230px]">操作</th>
+        <th scope="col" class="backend-table-th min-w-[230px] w-[230px]">操作</th>
       </template>
 
       <template #tbody>

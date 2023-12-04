@@ -6,6 +6,10 @@ defineProps({
     type: Object,
     required: false,
   },
+  hasPagination: {
+    type: Boolean,
+    required: false,
+  },
   hasSearch: {
     type: Boolean,
     required: false,
@@ -53,18 +57,20 @@ onMounted(() => {
     </div>
 
     <!-- 表格區塊 -->
-    <table class="w-full text-center">
-      <thead>
-        <tr>
-          <slot name="thead" />
-        </tr>
-      </thead>
-      <tbody>
-        <slot name="tbody" />
-      </tbody>
-    </table>
+    <div class="overflow-y-auto">
+      <table class="w-full text-center">
+        <thead>
+          <tr>
+            <slot name="thead" />
+          </tr>
+        </thead>
+        <tbody>
+          <slot name="tbody" />
+        </tbody>
+      </table>
+    </div>
 
     <!-- 分頁器 -->
-    <Pagination v-if="paginationData" :pagination-data="paginationData" />
+    <Pagination v-if="hasPagination && paginationData" :pagination-data="paginationData" />
   </div>
 </template>

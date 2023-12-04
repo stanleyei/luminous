@@ -17,7 +17,7 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     // 後台商品管理
     Route::prefix('product')->group(function () {
         // 後台商品管理列表頁
-        Route::get('/', [ProductController::class, 'index'])->name('product.index');
+        Route::get('/', [ProductController::class, 'index'])->name('product.list');
         // 後台商品管理新增編輯頁
         Route::get('edit', [ProductController::class, 'edit'])->name('product.edit');
         // 新增商品

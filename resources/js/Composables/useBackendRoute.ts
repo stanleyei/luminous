@@ -3,7 +3,7 @@ const menuLinks = Object.freeze([
   {
     id: 'products',
     name: '商品管理',
-    path: 'dashboard',
+    path: 'product.list',
   },
   {
     id: 'clients',
