@@ -16,7 +16,7 @@ import 'tinymce/plugins/table';
 import 'tinymce/plugins/code';
 import 'tinymce/plugins/media';
 import 'tinymce/plugins/nonbreaking';
-import '@/Plugin/tinymce/langs/zh-Hant';
+import '@/Plugins/tinymce/langs/zh-Hant';
 import { router } from '@inertiajs/vue3';
 import editorCss from '/css/editor.css?inline';
 import editor from '@tinymce/tinymce-vue';
@@ -78,7 +78,7 @@ const editorInit = computed(() => ({
   target_list: [
     { title: '開新視窗', value: '_blank' },
   ], // 開啟連結的方式的選單
-  skin: false,
+  skin: false, // 是否開啟預設的css樣式
   content_style: editorCss, // 編輯器的css樣式
   toolbar: [], // 工具列
   font_size_formats: '0.75rem 0.875rem 1rem 1.125rem 1.25rem 1.5rem 2.25rem', // 設定字體單位
