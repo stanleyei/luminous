@@ -19,7 +19,6 @@
     <body class="font-sans antialiased">
         @inertia
 
-        <script src="/tinymce/tinymce.min.js"></script>
         <noscript>
           <p>Luminous</p>
           <p>您的瀏覽器不支援 JavaScript 或 JavaScript已停用，請先至您的瀏覽器設定中開啟 JavaScript</p>
