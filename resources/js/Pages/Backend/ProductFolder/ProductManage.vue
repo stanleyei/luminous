@@ -84,7 +84,7 @@ const deleteProduct = (id) => {
       </template>
 
       <template #thead>
-        <th scope="col" class="backend-table-th min-w-[370px] w-[370px]">
+        <th scope="col" class="backend-table-th min-w-[300px] w-[300px]">
           封面照片
         </th>
         <th scope="col" class="backend-table-th min-w-[200px]">
@@ -107,7 +107,7 @@ const deleteProduct = (id) => {
 
       <template #tbody>
         <tr v-for="product in paginationData?.data ?? []" :key="product.id">
-          <td class="backend-table-td break-all w-[370px]">
+          <td class="backend-table-td break-all w-[300px]">
             <figure class="w-full aspect-video">
               <img v-if="product.cover_photo_path" :src="product.cover_photo_path" :alt="product.cover_photo_alt" class="h-[200px] rounded-md" width="356">
               <div v-else class="inset-0 flex items-center justify-center w-full h-[200px] text-gray-400 bg-gray-100 rounded-md text-2xl">
