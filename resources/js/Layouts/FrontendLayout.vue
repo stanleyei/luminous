@@ -5,13 +5,13 @@
 </script>
 
 <template>
-  <section id="frontend-layout">
-    <!-- <FrontendHeader /> -->
+  <section id="frontend-layout" class="bg-white">
+    <div class="relative container mx-auto">
+      <FrontendHeader />
 
-    <main class="min-h-[100dvh] overflow-x-hidden">
-      <slot />
-    </main>
+      <main class="min-h-[100dvh] overflow-x-hidden">
+        <slot />
+      </main>
+    </div>
   </section>
 </template>
-
-<style scoped></style>

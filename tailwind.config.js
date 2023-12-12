@@ -26,6 +26,7 @@ export default {
         'main-dark-green': '#2A3E3E',
         'main-light-red': '#E46278',
         'main-brown': '#795642',
+        'main-yellow': '#FFFAAB',
       },
       fontFamily: {
         sans: ['Noto Sans TC, sans-serif', 'Microsoft JhengHei'],
