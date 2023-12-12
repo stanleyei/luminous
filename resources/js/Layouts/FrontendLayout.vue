@@ -9,7 +9,7 @@
     <div class="relative container mx-auto">
       <FrontendHeader />
 
-      <main class="min-h-[100dvh] overflow-x-hidden">
+      <main class="min-h-[100dvh] xl:pt-[100px] pt-[65px] overflow-x-hidden">
         <slot />
       </main>
     </div>

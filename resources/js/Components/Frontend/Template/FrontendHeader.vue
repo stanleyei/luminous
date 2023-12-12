@@ -1,7 +1,7 @@
 <!-- 前台頁首組件 -->
 
 <script setup>
-import { usePage } from '@inertiajs/vue3';
+import { usePage, router } from '@inertiajs/vue3';
 import logoLuminous from '/images/logo/logo-luminous.png';
 import iconShoppingCart from '/images/icon/icon-shopping-cart.svg';
 import iconUser from '/images/icon/icon-user.svg';
@@ -10,6 +10,7 @@ import iconSearch from '/images/icon/icon-search.svg';
 const user = computed(() => usePage().props.auth.user);
 const showNavigationDropdown = ref(false);
 const showSearchBar = ref(false);
+const keywords = ref('');
 
 // 監聽組件變化，關閉選單
 watch(() => usePage().component, () => {
@@ -24,6 +25,13 @@ watch(showNavigationDropdown, (newValue) => {
     document.body.style.overflow = 'auto';
   }
 });
+
+const searchKeywords = () => {
+  router.get('/', { q: keywords.value }, {
+    preserveState: true,
+    preserveScroll: true,
+  });
+};
 </script>
 
 <template>
@@ -39,11 +47,11 @@ watch(showNavigationDropdown, (newValue) => {
           <div class="flex items-center xl:gap-7 gap-3 xl:self-end xl:mr-0 mr-5">
             <div class="flex items-center gap-2">
               <label class="xl:block hidden">
-                <input type="text" placeholder="搜尋商品" class="w-[200px] py-1 border border-gray-300 rounded-md px-3">
+                <input v-model="keywords" type="text" placeholder="搜尋商品" class="w-[200px] py-1 border border-gray-300 rounded-md px-3">
               </label>
-              <Link href="/" class="xl:block hidden">
+              <button type="button" class="xl:block hidden" @click="searchKeywords">
                 <img :src="iconSearch" alt="放大鏡圖示" width="22" height="22" class="w-[22px]">
-              </Link>
+              </button>
               <button type="button" class="xl:hidden block" @click="showSearchBar = !showSearchBar">
                 <img :src="iconSearch" alt="放大鏡圖示" width="22" height="22" class="w-[22px]">
               </button>
@@ -76,7 +84,7 @@ watch(showNavigationDropdown, (newValue) => {
           <img :src="iconSearch" alt="放大鏡圖示" width="22" height="22" class="w-[22px]">
         </Link>
         <label class="flex-1">
-          <input type="text" placeholder="搜尋商品" class="w-full py-1 border border-gray-300 rounded-md px-3">
+          <input v-model="keywords" type="text" placeholder="搜尋商品" class="w-full py-1 border border-gray-300 rounded-md px-3">
         </label>
         <button type="button" @click="showSearchBar = !showSearchBar">
           <svg class="h-6 w-6 mx-auto" stroke="currentColor" fill="none" viewBox="0 0 24 24">
