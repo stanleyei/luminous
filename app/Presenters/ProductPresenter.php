@@ -14,15 +14,23 @@ class ProductPresenter
         $this->typeOption = [
             (object) [
                 'id' => 1,
-                'name' => '項鍊',
-            ],
-            (object) [
-                'id' => 2,
                 'name' => '耳環',
             ],
             (object) [
+                'id' => 2,
+                'name' => '手鍊',
+            ],
+            (object) [
                 'id' => 3,
+                'name' => '項鍊',
+            ],
+            (object) [
+                'id' => 4,
                 'name' => '戒指',
+            ],
+            (object) [
+                'id' => 5,
+                'name' => '其他',
             ],
         ];
     }

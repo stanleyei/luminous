@@ -74,7 +74,7 @@ const deleteProduct = (id) => {
           <li
             v-for="typeOption in productTypeOption"
             :key="typeOption.id"
-            :class="twMerge('border border-black border-b-0 first:rounded-tl last:rounded-tr transition-colors hover:bg-gray-300', currentType === typeOption.id && 'bg-gray-800 text-white hover:bg-gray-800')"
+            :class="twMerge('border border-black border-b-0 rounded-t-md transition-colors hover:bg-gray-300', currentType === typeOption.id && 'bg-gray-800 text-white hover:bg-gray-800')"
           >
             <Link :href="route('product.list', { type: typeOption.id })" class="block py-2 px-3">
               {{ typeOption.name }}
