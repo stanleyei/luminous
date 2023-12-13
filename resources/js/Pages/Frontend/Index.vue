@@ -19,9 +19,8 @@ const btnNextBanner = ref(null);
 <template>
   <div>
     <!-- 橫幅區塊 -->
-    <div class="relative group cursor-grab">
+    <div v-if="bannerData.length" class="relative group cursor-grab">
       <Swiper
-        v-if="bannerData.length"
         v-slot="{ slide }"
         :slide-data="bannerData"
         :slides-per-view="1"
