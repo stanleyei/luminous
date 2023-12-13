@@ -6,12 +6,14 @@
 
 <template>
   <section id="frontend-layout" class="bg-white">
-    <div class="relative container mx-auto">
-      <FrontendHeader />
+    <FrontendHeader />
 
-      <main class="min-h-[100dvh] xl:pt-[100px] pt-[65px] overflow-x-hidden">
+    <div class="min-h-[100dvh] xl:pt-[100px] pt-[65px] px-3 overflow-x-hidden">
+      <main class="container mx-auto">
         <slot />
       </main>
     </div>
+
+    <FrontendFooter />
   </section>
 </template>

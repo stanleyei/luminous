@@ -17,15 +17,7 @@ watch(() => usePage().component, () => {
   showNavigationDropdown.value = false;
 });
 
-// 監聽選單開關，關閉選單時，恢復body的overflow
-watch(showNavigationDropdown, (newValue) => {
-  if (newValue) {
-    document.body.style.overflow = 'hidden';
-  } else {
-    document.body.style.overflow = 'auto';
-  }
-});
-
+// 搜尋關鍵字
 const searchKeywords = () => {
   router.get('/', { q: keywords.value }, {
     preserveState: true,
@@ -37,13 +29,13 @@ const searchKeywords = () => {
 <template>
   <header class="fixed z-[1] top-0 left-0 w-full xl:h-[100px] h-[65px] px-3 bg-main-yellow shadow-md">
     <Transition name="fade" mode="out-in">
-      <div v-if="!showSearchBar" class="container flex items-center h-full mx-auto">
+      <div v-if="!showSearchBar" class="container relative flex items-center h-full mx-auto">
         <h1 class="pr-4">
           <Link href="/" title="回到首頁(跳轉頁面)">
             <img :src="logoLuminous" alt="LOGO" width="200" class="xl:w-[200px] w-[150px]">
           </Link>
         </h1>
-        <section class="flex xl:flex-col gap-y-3 flex-1 xl:items-start items-center justify-end h-full xl:pt-3">
+        <section class="flex xl:flex-col gap-y-1 flex-1 xl:items-start items-center justify-end h-full xl:pt-3">
           <div class="flex items-center xl:gap-7 gap-3 xl:self-end xl:mr-0 mr-5">
             <div class="flex items-center gap-2">
               <label class="xl:block hidden">
@@ -63,13 +55,11 @@ const searchKeywords = () => {
               <img :src="iconShoppingCart" alt="購物車圖示" width="22" height="22" class="w-[22px]">
             </button>
           </div>
-          <nav class="xl:flex hidden items-center gap-5 p-3">
-            <Link href="">首頁</Link>
-            <Link href="">所有商品</Link>
-            <Link href="">Instagram</Link>
-            <Link href="">Facebook</Link>
-          </nav>
 
+          <!-- 導覽列 -->
+          <FrontendHeaderNav class="xl:flex hidden" />
+
+          <!-- 行動版選單按鈕 -->
           <button type="button" class="xl:hidden w-[60px] h-full bg-gray-200/50" @click="showNavigationDropdown = !showNavigationDropdown">
             <svg class="h-6 w-6 mx-auto" stroke="currentColor" fill="none" viewBox="0 0 24 24">
               <title>導覽列選單</title>
@@ -77,6 +67,10 @@ const searchKeywords = () => {
               <path :class="{ hidden: !showNavigationDropdown, 'inline-flex': showNavigationDropdown }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
+
+          <Transition name="fade" mode="out-in">
+            <FrontendHeaderNav v-show="showNavigationDropdown" class="absolute top-[70px] right-0 xl:hidden flex xl:flex-row flex-col rounded-lg bg-white shadow-lg" />
+          </Transition>
         </section>
       </div>
       <div v-else class="flex items-center gap-4 w-full h-full">
@@ -93,8 +87,7 @@ const searchKeywords = () => {
           </svg>
         </button>
       </div>
-
-    </transition>
+    </Transition>
   </header>
 </template>
 
@@ -106,6 +99,6 @@ const searchKeywords = () => {
 
 .fade-enter-from,
 .fade-leave-to {
-  @apply opacity-0
+  @apply opacity-0;
 }
 </style>
