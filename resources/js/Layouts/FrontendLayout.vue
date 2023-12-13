@@ -8,11 +8,9 @@
   <section id="frontend-layout" class="bg-white">
     <FrontendHeader />
 
-    <div class="min-h-[100dvh] xl:pt-[100px] pt-[65px] px-3 overflow-x-hidden">
-      <main class="container mx-auto">
-        <slot />
-      </main>
-    </div>
+    <main class="min-h-[100dvh] xl:pt-[100px] pt-[65px] overflow-x-hidden">
+      <slot />
+    </main>
 
     <FrontendFooter />
   </section>

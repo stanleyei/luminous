@@ -76,7 +76,7 @@ const onSwiper = (swiper) => {
 
 <template>
   <Swiper
-    class="vue-swiper"
+    class="w-full"
     :modules="modules"
     :slides-per-view="props.slidesPerView"
     :space-between="props.spaceBetween"
@@ -100,9 +100,3 @@ const onSwiper = (swiper) => {
     </SwiperSlide>
   </Swiper>
 </template>
-
-<style lang="scss" scoped>
-.vue-swiper {
-  @apply w-full;
-}
-</style>
