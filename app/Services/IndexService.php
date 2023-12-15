@@ -61,8 +61,6 @@ class IndexService
                 'id' => $item->id,
                 // 商品名稱
                 'name' => $item->name,
-                // 商品狀態
-                'status' => $item->status,
                 // 商品開始時間
                 'start_time' => date('Y-m-d H:i', strtotime($item->start_time)),
                 // 商品價格

@@ -19,7 +19,7 @@ watch(() => usePage().component, () => {
 
 // 搜尋關鍵字
 const searchKeywords = () => {
-  router.get('/', { q: keywords.value }, {
+  router.get(route('product.index'), { q: keywords.value }, {
     preserveState: true,
     preserveScroll: true,
   });
@@ -74,9 +74,9 @@ const searchKeywords = () => {
         </section>
       </div>
       <div v-else class="flex items-center gap-4 w-full h-full">
-        <Link href="/">
+        <button type="button" @click="searchKeywords">
           <img :src="iconSearch" alt="放大鏡圖示" width="22" height="22" class="w-[22px]">
-        </Link>
+        </button>
         <label class="flex-1">
           <input v-model="keywords" type="text" placeholder="搜尋商品" class="w-full py-1 border border-gray-300 rounded-md px-3">
         </label>

@@ -44,7 +44,7 @@ const btnNextBanner = ref(null);
 
     <!-- 產品區塊 -->
     <div class="container grid lg:grid-cols-4 grid-cols-2 xl:gap-6 gap-4 mx-auto md:py-10 py-4 md:px-3 px-4">
-      <Link v-for="product in productData" :key="product.id" href="" :title="`前往${product.name}(跳轉頁面)`">
+      <Link v-for="product in productData" :key="product.id" :href="route('product.detail', { id: product.id })" :title="`前往${product.name}(跳轉頁面)`">
         <figure class="flex flex-col gap-y-1 pb-2 bg-[#CCCAB1] text-[#333111] shadow-md">
           <img :src="product.cover_photo_path" :alt="product.name" class="object-cover w-full h-[210px]">
           <figcaption class="text-center">{{ product.name }}</figcaption>
