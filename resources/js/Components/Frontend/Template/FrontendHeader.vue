@@ -27,7 +27,7 @@ const searchKeywords = () => {
 </script>
 
 <template>
-  <header class="fixed z-[1] top-0 left-0 w-full xl:h-[100px] h-[65px] px-3 bg-main-yellow shadow-md">
+  <header class="fixed z-[2] top-0 left-0 w-full xl:h-[100px] h-[65px] px-3 bg-main-yellow shadow-md">
     <Transition name="fade" mode="out-in">
       <div v-if="!showSearchBar" class="container relative flex items-center h-full mx-auto">
         <h1 class="pr-4">
