@@ -10,6 +10,7 @@ const props = defineProps({
 
 const rtData = computed(() => props.response?.rt_data ?? {});
 const bannerData = computed(() => rtData.value?.banners ?? []);
+const productData = computed(() => rtData.value?.products ?? []);
 
 // swiper前後按鈕
 const btnPrevBanner = ref(null);
@@ -42,7 +43,15 @@ const btnNextBanner = ref(null);
     </div>
 
     <!-- 產品區塊 -->
-    <div class="container mx-auto px-3"></div>
+    <div class="container grid grid-cols-2 xl:gap-6 gap-4 mx-auto py-10 px-3">
+      <Link v-for="product in productData" :key="product.id" href="">
+        <figure class="">
+          <img :src="product.cover_photo_path" :alt="product.name" class="w-full">
+          <figcaption class="text-center">{{ product.name }}</figcaption>
+          <div class="text-center">NT${{ product.price }}</div>
+        </figure>
+      </Link>
+    </div>
   </div>
 </template>
 

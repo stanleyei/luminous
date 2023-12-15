@@ -41,8 +41,13 @@ class IndexService
      */
     public function getProductData()
     {
-        $productData = Product::with('productPhotos')->select('id', 'type', 'name', 'status', 'start_time', 'price', 'cover_photo_index', 'created_at')
-            ->where('start_time', '<=', now())
+        $whereQuery = [
+            ['status', 1],
+            ['start_time', '<=', now()],
+        ];
+        $productData = Product::with('productPhotos')
+            ->select('id', 'type', 'name', 'status', 'start_time', 'price', 'cover_photo_index', 'created_at')
+            ->where($whereQuery)
             ->orderBy('created_at', 'desc')
             ->take(4)
             ->get();
@@ -59,7 +64,7 @@ class IndexService
                 // 商品狀態
                 'status' => $item->status,
                 // 商品開始時間
-                'start_time' => $item->start_time,
+                'start_time' => date('Y-m-d H:i', strtotime($item->start_time)),
                 // 商品價格
                 'price' => $item->price,
                 // 商品封面照片路徑

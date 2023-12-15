@@ -38,8 +38,6 @@ class Product extends Model
     protected $casts = [
         'type' => 'int',
         'status' => 'int',
-        'start_time' => 'datetime:Y-m-d H:i',
-        'end_time' => 'datetime:Y-m-d H:i',
         'price' => 'int',
         'cover_photo_index' => 'int'
     ];
@@ -71,8 +69,8 @@ class Product extends Model
      * 獲取商品封面照片
      * @return ProductPhoto
      */
-    public function scopeCoverPhoto($query)
+    public function scopeCoverPhoto()
     {
-        return $query->productPhotos[$this->cover_photo_index] ?? $query->productPhotos->first();
+        return $this->productPhotos[$this->cover_photo_index] ?? $this->productPhotos->first();
     }
 }

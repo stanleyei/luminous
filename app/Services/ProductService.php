@@ -53,7 +53,7 @@ class ProductService
                     // 商品狀態
                     'status' => $item->status,
                     // 商品開始時間
-                    'start_time' => $item->start_time,
+                    'start_time' => date('Y-m-d H:i', strtotime($item->start_time)),
                     // 商品價格
                     'price' => $item->price,
                     // 商品封面照片路徑
