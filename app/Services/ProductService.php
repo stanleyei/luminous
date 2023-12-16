@@ -128,20 +128,20 @@ class ProductService
      */
     public function updateProduct($modalParams, $otherParams)
     {
-        $productData = Product::with('productPhotos')->find($otherParams->id);
+        $productData = Product::with('productPhotos')->find($modalParams['id']);
         $productData->update($modalParams);
 
-        // 新增編輯相簿照片及相簿照片描述
+        // 新增編輯照片及照片描述
         if (count($otherParams->photos)) {
             $this->handlePhoto($productData, $otherParams->photos);
         }
 
-        // 刪除相簿照片
+        // 刪除照片
         if (count($otherParams->deletePhotoIds)) {
             $this->deletePhoto($productData, $otherParams->deletePhotoIds);
         }
 
-        return ['message' => rtFormat($otherParams->id)];
+        return ['message' => rtFormat($productData->id)];
     }
 
     /**

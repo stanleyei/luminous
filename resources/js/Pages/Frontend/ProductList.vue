@@ -25,7 +25,7 @@ const changeType = (type) => {
 </script>
 
 <template>
-  <div class="py-7 px-4">
+  <div class="flex flex-col justify-between gap-y-4 min-h-[calc(100dvh-201px)] py-7 px-4">
     <div class="flex justify-between items-center">
       <h2 class="font-bold text-xl">商品列表</h2>
       <select class="rounded-xl cursor-pointer" @change="(e) => changeType(Number(e.target.value))">

@@ -41,15 +41,11 @@ class IndexService
      */
     public function getProductData()
     {
-        $whereQuery = [
-            ['status', 1],
-            ['start_time', '<=', now()],
-        ];
         $productData = Product::with('productPhotos')
             ->select('id', 'type', 'name', 'status', 'start_time', 'price', 'cover_photo_index', 'created_at')
-            ->where($whereQuery)
+            ->active()
             ->orderBy('created_at', 'desc')
-            ->take(4)
+            ->take(6)
             ->get();
 
         $data = $productData->map(function ($item) {

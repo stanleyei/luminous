@@ -65,6 +65,15 @@ class Product extends Model
                     ->withTimestamps();
     }
 
+    // 獲取前台商品列表資料
+    public function scopeActive($query)
+    {
+        return $query
+            ->where('status', 1)
+            ->where('start_time', '<=', now())
+            ->where('end_time', '>=', now());
+    }
+
     /**
      * 獲取商品封面照片
      * @return ProductPhoto

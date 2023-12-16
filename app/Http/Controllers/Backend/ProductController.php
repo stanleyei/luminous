@@ -102,7 +102,7 @@ class ProductController extends Controller
         // 其他參數
         $otherParams = (object) [
             'photos' => $request->photos ?? [],
-            'delete_photo_ids' => $request->delete_photo_ids ?? [],
+            'deletePhotoIds' => $request->delete_photo_ids ?? [],
         ];
 
         $rtData = $this->productService->updateProduct($modalParams, $otherParams);

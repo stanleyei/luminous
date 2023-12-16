@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Frontend;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-use App\Services\ProductService;
 use App\Http\Controllers\Controller;
+use App\Services\ProductListService;
 
 class ProductListController extends Controller
 {
     // 初始化注入
-    public function __construct(protected ProductService $productService)
+    public function __construct(protected ProductListService $productListService)
     {
     }
 
@@ -22,7 +22,7 @@ class ProductListController extends Controller
             'keywords' => $request->q ?? '',
         ];
 
-        $rtData = $this->productService->getProductList($params);
+        $rtData = $this->productListService->getProductListData($params);
 
         return Inertia::render('Frontend/ProductList', $rtData);
     }
