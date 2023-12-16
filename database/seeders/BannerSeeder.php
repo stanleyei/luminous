@@ -15,16 +15,16 @@ class BannerSeeder extends Seeder
     {
         $arr = [
             [
-                'photo_path' => '',
-                'photo_alt' => '',
+                'photo_path' => '/upload/banner/170244158306409663226af2f3114485aa4e0a23b4.webp',
+                'photo_alt' => 'Banner圖片',
             ],
             [
-                'photo_path' => '',
-                'photo_alt' => '',
+                'photo_path' => '/upload/banner/1702441573eecca5b6365d9607ee5a9d336962c534.webp',
+                'photo_alt' => 'Banner圖片',
             ],
             [
-                'photo_path' => '',
-                'photo_alt' => '',
+                'photo_path' => '/upload/banner/17026962019872ed9fc22fc182d371c3e9ed316094.webp',
+                'photo_alt' => 'Banner圖片',
             ],
         ];
 

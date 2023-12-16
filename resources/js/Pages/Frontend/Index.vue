@@ -18,7 +18,7 @@ const btnNextBanner = ref(null);
 </script>
 
 <template>
-  <div>
+  <div class="@container">
     <!-- 橫幅區塊 -->
     <div v-if="bannerData.length" class="relative group cursor-grab">
       <Swiper
@@ -43,7 +43,7 @@ const btnNextBanner = ref(null);
     </div>
 
     <!-- 產品區塊 -->
-    <div class="container grid lg:grid-cols-4 grid-cols-2 xl:gap-6 gap-4 mx-auto md:py-10 py-4 md:px-3 px-4">
+    <div class="grid @3xl:grid-cols-3 grid-cols-2 gap-4 mx-auto py-20 px-4">
       <ProductCard v-for="product in productData" :key="product.id" :product="product" />
     </div>
   </div>
@@ -51,10 +51,10 @@ const btnNextBanner = ref(null);
 
 <style scoped>
 .banner-action-btn {
-  @apply flex items-center justify-center w-[4.17vw] h-[4.17vw] rounded-full bg-gray-300/60 hover:bg-gray-300 transition-colors;
+  @apply flex items-center justify-center w-[2.17vw] h-[2.17vw] rounded-full bg-gray-300/60 hover:bg-gray-300 transition-colors;
 }
 
 .banner-action-btn-icon {
-  @apply w-[2.6vw];
+  @apply w-[1.4vw];
 }
 </style>
