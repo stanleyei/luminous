@@ -27,7 +27,7 @@ const changeType = (type) => {
 
 <template>
   <div class="flex flex-col justify-between gap-y-4 md:min-h-[calc(100dvh-201px)] min-h-[calc(100dvh-177px)] py-7 px-4">
-    <div class="flex justify-between items-center">
+    <section class="flex justify-between items-center">
       <h2 class="font-bold text-xl">商品列表</h2>
       <select class="rounded-xl cursor-pointer" @change="(e) => changeType(Number(e.target.value))">
         <option value="" :selected="!currentType">全部商品</option>
@@ -40,17 +40,17 @@ const changeType = (type) => {
           {{ typeOption.name }}
         </option>
       </select>
-    </div>
+    </section>
 
     <!-- 商品列表 -->
-    <div :class="twMerge('grid grid-cols-2 gap-4 mx-auto py-5', !paginationData?.data?.length && 'grid-cols-1')">
+    <section :class="twMerge('grid grid-cols-2 gap-4 mx-auto py-5', !paginationData?.data?.length && 'grid-cols-1')">
       <ProductCard v-for="product in paginationData?.data ?? []" :key="product.id" :product="product" />
       <p v-show="!paginationData?.data?.length" class="md:text-3xl text-xl">查無商品資料</p>
-    </div>
+    </section>
 
     <!-- 分頁器 -->
-    <div class="flex justify-center">
+    <section class="flex justify-center">
       <Pagination :pagination-data="paginationData" />
-    </div>
+    </section>
   </div>
 </template>

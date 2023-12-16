@@ -37,15 +37,15 @@ class IndexService
     }
 
     /**
-     * 獲取4筆商品資料
+     * 獲取精選商品資料
      */
     public function getProductData()
     {
         $productData = Product::with('productPhotos')
-            ->select('id', 'type', 'name', 'status', 'start_time', 'end_time', 'price', 'cover_photo_index', 'created_at')
+            ->select('id', 'type', 'name', 'status', 'start_time', 'end_time', 'price', 'featured', 'cover_photo_index', 'created_at')
             ->active()
+            ->where('featured', 1)
             ->orderBy('created_at', 'desc')
-            ->take(6)
             ->get();
 
         $data = $productData->map(function ($item) {
@@ -57,8 +57,10 @@ class IndexService
                 'id' => $item->id,
                 // 商品名稱
                 'name' => $item->name,
-                // 商品開始時間
+                // 競標開始時間
                 'start_time' => date('Y-m-d H:i', strtotime($item->start_time)),
+                // 競標結束時間
+                'end_time' => date('Y/m/d H:i', strtotime($item->end_time)),
                 // 商品價格
                 'price' => $item->price,
                 // 商品封面照片路徑

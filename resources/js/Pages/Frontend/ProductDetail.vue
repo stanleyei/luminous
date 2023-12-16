@@ -15,7 +15,8 @@ const selectedPhotoIndex = ref(productData.value?.cover_photo_index ?? 0);
 
 <template>
   <div class="md:min-h-[calc(100dvh-201px)] min-h-[calc(100dvh-177px)] py-7 px-4">
-    <div class="flex md:flex-row flex-col gap-x-4 gap-y-2 md:mb-4 mb-8">
+    <!-- 商品照片 -->
+    <section class="flex md:flex-row flex-col gap-x-2 gap-y-2 md:mb-4 mb-8">
       <aside class="custom-scroll flex md:flex-col md:order-none order-1 gap-2 md:min-w-[89px] md:h-[500px] pb-2 md:overflow-y-auto md:overflow-x-visible overflow-x-auto">
         <button
           v-for="(photo, index) in productData?.photos ?? []"
@@ -30,16 +31,20 @@ const selectedPhotoIndex = ref(productData.value?.cover_photo_index ?? 0);
       <figure class="flex items-center md:h-[500px] h-[250px] bg-gray-100">
         <img :src="selectedPhoto.photo_path" :alt="selectedPhoto.photo_alt">
       </figure>
-    </div>
-    <article class="flex flex-col gap-4 md:ml-[86px] px-3 border-l-4 border-main-brown text-lg">
+    </section>
+
+    <!-- 商品資訊 -->
+    <section class="flex flex-col gap-4 md:ml-[97px] px-3 border-l-4 border-main-brown text-lg">
       <p>{{ productData.name }}</p>
       <b>NT${{ productData.price.toLocaleString() }}</b>
       <p class="wysiwyg-customize-block" v-html="productData.description"></p>
-    </article>
-    <div class="flex justify-center pt-10">
-      <button type="button" class="py-2 px-10 rounded bg-main-light-blue md:text-xl text-lg font-bold text-white transition-colors hover:bg-main-blue">
+    </section>
+
+    <!-- 競標按鈕 -->
+    <section class="flex justify-center pt-10">
+      <button type="button" class="py-2 px-8 rounded-lg bg-[#CCCAB1]/70 text-lg font-bold text-main-swamp-green/80 transition-colors hover:bg-[#CCCAB1]">
         我要競標
       </button>
-    </div>
+    </section>
   </div>
 </template>

@@ -18,11 +18,6 @@ class ProductListService
      */
     public function getProductListData($params)
     {
-        $whereQuery = [
-            ['type', $params->type],
-            ['name', 'like', "%{$params->keywords}%"],
-        ];
-
         $productData = Product::with('productPhotos')
             ->select('id', 'type', 'name', 'status', 'start_time', 'end_time', 'price', 'cover_photo_index', 'created_at')
             ->active()
@@ -42,8 +37,10 @@ class ProductListService
                     'id' => $item->id,
                     // 商品名稱
                     'name' => $item->name,
-                    // 商品開始時間
+                    // 競標開始時間
                     'start_time' => date('Y-m-d H:i', strtotime($item->start_time)),
+                    // 競標結束時間
+                    'end_time' => date('Y/m/d H:i', strtotime($item->end_time)),
                     // 商品價格
                     'price' => $item->price,
                     // 商品封面照片路徑

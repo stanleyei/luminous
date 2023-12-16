@@ -4,7 +4,7 @@
   <footer class="py-8 md:pl-7 pl-4 pr-3 bg-main-yellow">
     <div class="container flex items-center gap-6 mx-auto">
       <div class="lg:text-base text-xs">
-        <div class="flex md:gap-4 gap-2">
+        <div class="flex md:gap-4 gap-2 text-main-swamp-green">
           <b>官方Line</b>
           <p>@Luminous2023</p>
         </div>

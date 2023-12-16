@@ -21,7 +21,7 @@ class ProductService
     public function getProductList($params)
     {
         $productData = Product::with('productPhotos')
-            ->select('id', 'type', 'name', 'status', 'start_time', 'price', 'cover_photo_index', 'created_at')
+            ->select('id', 'type', 'name', 'status', 'start_time', 'price', 'featured', 'cover_photo_index', 'created_at')
             ->where('name', 'like', "%{$params->keywords}%")
             ->when($params->type, fn ($query) => $query->where('type', $params->type));
 
@@ -52,10 +52,12 @@ class ProductService
                     'name' => $item->name,
                     // 商品狀態
                     'status' => $item->status,
-                    // 商品開始時間
+                    // 競標開始時間
                     'start_time' => date('Y-m-d H:i', strtotime($item->start_time)),
                     // 商品價格
                     'price' => $item->price,
+                    // 商品精選
+                    'featured' => $item->featured,
                     // 商品封面照片路徑
                     'cover_photo_path' => $coverPhoto->photo_path ?? '',
                     // 商品封面照片說明
@@ -157,6 +159,21 @@ class ProductService
         $productData = Product::select('id', 'status')->find($id);
         $status = $productData->status ? 0 : 1;
         $productData->update(['status' => $status]);
+
+        return ['message' => rtFormat($id)];
+    }
+
+    /**
+     * 更新精選商品
+     * @param int $id 商品 id
+     * @param int $featured 商品精選
+     * @return array
+     */
+    public function updateFeatured($id)
+    {
+        $productData = Product::select('id', 'featured')->find($id);
+        $featured = $productData->featured ? 0 : 1;
+        $productData->update(['featured' => $featured]);
 
         return ['message' => rtFormat($id)];
     }

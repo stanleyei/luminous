@@ -25,6 +25,7 @@ export default {
         'main-light-blue': '#3A95C1',
         'main-light-green': '#509D50',
         'main-dark-green': '#2A3E3E',
+        'main-swamp-green': '#333111',
         'main-light-red': '#E46278',
         'main-brown': '#795642',
         'main-yellow': '#FFFAAB',

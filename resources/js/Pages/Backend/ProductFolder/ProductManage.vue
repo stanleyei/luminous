@@ -14,6 +14,7 @@ const paginationData = computed(() => rtData.value.productData ?? {});
 const productTypeOption = computed(() => rtData.value.productTypeOption ?? []);
 const currentType = computed(() => rtData.value.currentType ?? 1);
 const stateSwitch = ref(false);
+const featuredSwitch = ref(false);
 
 // 設置麵包屑
 const { setBreadcrumb } = useBreadcrumbStore();
@@ -44,6 +45,20 @@ const changeStatus = async (id) => {
   });
 
   stateSwitch.value = false;
+};
+
+/**
+ * 設置推薦商品
+ * @param {number} id 商品 id
+ */
+const changeFeatured = async (id) => {
+  featuredSwitch.value = true;
+  await sendRequest(route('product.featured', { id }), 'put', {
+    reload: false,
+    response: false,
+  });
+
+  featuredSwitch.value = false;
 };
 
 /**
@@ -125,19 +140,32 @@ const deleteProduct = (id) => {
             {{ product.price }}
           </td>
           <td class="backend-table-td w-[230px]">
-            <div class="flex gap-2 justify-center items-center">
-              <PrimaryButton type="button" class="px-0 bg-main-light-gray" :disabled="stateSwitch" @click="changeStatus(product.id)">
-                <label :for="`top-check-${product.id}`" class="flex items-center gap-1 w-full cursor-pointer" :class="{ 'cursor-default': stateSwitch }">
-                  <input :id="`top-check-${product.id}`" type="checkbox" class="rounded-md cursor-pointer text-main-light-gray" :checked="!!product.status" :disabled="stateSwitch">
-                  上下架
-                </label>
-              </PrimaryButton>
-              <PrimaryButton type="button" color="blue" @click="goToAddEditPage(product.id)">
-                編輯
-              </PrimaryButton>
-              <PrimaryButton type="button" color="red" @click="deleteProduct(product.id)">
-                刪除
-              </PrimaryButton>
+            <div>
+              <div class="flex gap-2 justify-center items-center mb-4">
+                <!-- 推薦 -->
+                <PrimaryButton type="button" class="px-0" @click="changeFeatured(product.id)">
+                  <label :for="`featured-check-${product.id}`" class="flex items-center gap-2 w-full cursor-pointer" :class="{ 'cursor-default': featuredSwitch }">
+                    <input :id="`featured-check-${product.id}`" type="checkbox" class="rounded-md cursor-pointer text-gray-800" :checked="!!product.featured" :disabled="featuredSwitch">
+                    推薦
+                  </label>
+                </PrimaryButton>
+
+                <!-- 上下架 -->
+                <PrimaryButton type="button" class="px-0 bg-main-light-gray" @click="changeStatus(product.id)">
+                  <label :for="`status-check-${product.id}`" class="flex items-center gap-2 w-full cursor-pointer" :class="{ 'cursor-default': stateSwitch }">
+                    <input :id="`status-check-${product.id}`" type="checkbox" class="rounded-md cursor-pointer text-main-light-gray" :checked="!!product.status" :disabled="stateSwitch">
+                    上下架
+                  </label>
+                </PrimaryButton>
+              </div>
+              <div class="flex gap-2 justify-center items-center">
+                <PrimaryButton type="button" color="blue" @click="goToAddEditPage(product.id)">
+                  編輯
+                </PrimaryButton>
+                <PrimaryButton type="button" color="red" @click="deleteProduct(product.id)">
+                  刪除
+                </PrimaryButton>
+              </div>
             </div>
           </td>
         </tr>

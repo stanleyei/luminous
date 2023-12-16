@@ -20,7 +20,7 @@ const btnNextBanner = ref(null);
 <template>
   <div class="@container">
     <!-- 橫幅區塊 -->
-    <div v-if="bannerData.length" class="relative group cursor-grab">
+    <section v-if="bannerData.length" class="relative group cursor-grab">
       <Swiper
         v-slot="{ slide }"
         :slide-data="bannerData"
@@ -40,12 +40,28 @@ const btnNextBanner = ref(null);
           <img :src="iconAngleRight" alt="向左箭頭圖示" width="40" class="banner-action-btn-icon">
         </button>
       </div>
-    </div>
+    </section>
 
-    <!-- 產品區塊 -->
-    <div class="grid @3xl:grid-cols-3 grid-cols-2 gap-4 mx-auto py-20 px-4">
-      <ProductCard v-for="product in productData" :key="product.id" :product="product" />
-    </div>
+    <!-- 關於我們 -->
+    <section class="flex flex-col items-center gap-1 pt-10 font-bold text-main-swamp-green">
+      <h2>-關於我們-</h2>
+      <p>Luminous是發光的意思，希望能</p>
+      <p>讓每個戴上我們飾品的你/妳，都能</p>
+      <p>像光一樣閃亮。</p>
+    </section>
+
+    <!-- 推薦商品 -->
+    <section class="pt-10 pb-20 px-4 text-main-swamp-green">
+      <h2 class="flex justify-center mb-5 font-bold">-推薦-</h2>
+      <div class="grid @3xl:grid-cols-3 grid-cols-2 gap-4 mx-auto">
+        <ProductCard v-for="product in productData" :key="product.id" :product="product" />
+      </div>
+      <div class="flex justify-end">
+        <Link :href="route('product.index')" title="前往商品列表頁(跳轉頁面)" class="pt-2 pb-1 px-1 border-b border-[#CCCAB1] text-sm hover:border-b-2">
+          點我查看更多 →
+        </Link>
+      </div>
+    </section>
   </div>
 </template>
 

@@ -116,10 +116,22 @@ class ProductController extends Controller
         // 驗證請求
         $request->validate([
             'id' => 'required|integer|exists:products,id',
-            'status' => 'required|integer|between:0,1',
         ]);
 
-        $rtData = $this->productService->updateStatus($request->id, $request->status);
+        $rtData = $this->productService->updateStatus($request->id);
+
+        return back()->with($rtData);
+    }
+
+    // 精選商品
+    public function updateFeatured(Request $request)
+    {
+        // 驗證請求
+        $request->validate([
+            'id' => 'required|integer|exists:products,id',
+        ]);
+
+        $rtData = $this->productService->updateFeatured($request->id);
 
         return back()->with($rtData);
     }

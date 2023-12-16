@@ -27,6 +27,8 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
         Route::put('update', [ProductController::class, 'update'])->name('product.update');
         // 更新商品狀態
         Route::put('update-status', [ProductController::class, 'updateStatus'])->name('product.status');
+        // 更新商品精選狀態
+        Route::put('update-featured', [ProductController::class, 'updateFeatured'])->name('product.featured');
         // 刪除商品
         Route::delete('destroy', [ProductController::class, 'destroy'])->name('product.destroy');
         // 上傳商品照片
