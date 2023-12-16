@@ -1,7 +1,7 @@
 <script setup>
 defineProps({
   modelValue: {
-    type: String,
+    type: [String, Number],
     required: true,
   },
 });

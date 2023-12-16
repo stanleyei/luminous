@@ -93,6 +93,8 @@ class ProductService
                 'price' => $productData?->price ?? '',
                 // 商品描述
                 'description' => $productData?->description ?? '',
+                // 封面照片索引
+                'cover_photo_index' => $productData?->cover_photo_index ?? 0,
                 // 商品照片
                 'photos' => $productData?->productPhotos ?? [],
             ],
