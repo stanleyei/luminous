@@ -32,6 +32,7 @@ export default {
       },
       fontFamily: {
         sans: ['Noto Sans TC, sans-serif', 'Microsoft JhengHei'],
+        clockicons: ['clockicons'],
       },
     },
   },

@@ -11,10 +11,10 @@ const rtData = computed(() => props.response?.rt_data ?? {});
 const productData = computed(() => rtData.value.productData ?? {});
 const selectedPhoto = computed(() => productData.value.photos[selectedPhotoIndex.value] ?? {});
 const selectedPhotoIndex = ref(productData.value?.cover_photo_index ?? 0);
-const endTime = new Date(productData.value.end_time).getTime();
 
 // 決標剩餘時間倒數計時器
 const countDown = () => {
+  const endTime = new Date(productData.value.end_time).getTime();
   const nowTime = new Date().getTime();
   const time = endTime - nowTime;
   const days = Math.floor(time / (1000 * 60 * 60 * 24));
@@ -22,31 +22,29 @@ const countDown = () => {
   const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((time % (1000 * 60)) / 1000);
 
-  let resultString = '';
-  if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
-    resultString = '已結標';
-  } else {
-    if (days > 0) {
-      resultString += `${days}天 `;
-    }
-    if (hours > 0) {
-      resultString += `${hours}時 `;
-    }
-    if (minutes > 0) {
-      resultString += `${minutes}分 `;
-    }
-    if (seconds > 0) {
-      resultString += `${seconds}秒 `;
-    }
-  }
+  const timeString = days === 0 && hours === 0 && minutes === 0 && seconds === 0
+    ? '已結標'
+    : `${padZero(hours)} : ${padZero(minutes)} : ${padZero(seconds)}`;
 
-  return resultString;
+  return { days, timeString };
 };
 
-const countDownTime = ref(countDown());
+/**
+ * 補零
+ * @param {number} num 數字
+ * @returns {string} 補零後的字串
+ */
+const padZero = (num) => {
+  const str = String(num);
+  return str.padStart(2, '0');
+};
+
+const countDownDays = ref(countDown().days);
+const countDownTime = ref(countDown().timeString);
 
 setInterval(() => {
-  countDownTime.value = countDown();
+  countDownDays.value = countDown().days;
+  countDownTime.value = countDown().timeString;
   if (countDownTime.value === '已結標') {
     clearInterval();
   }
@@ -56,7 +54,7 @@ setInterval(() => {
 <template>
   <div class="md:min-h-[calc(100dvh-201px)] min-h-[calc(100dvh-177px)] py-7 px-4">
     <!-- 商品照片 -->
-    <section class="flex md:flex-row flex-col gap-x-2 gap-y-2 md:mb-4 mb-8">
+    <section class="flex md:flex-row flex-col gap-x-2 gap-y-2">
       <aside class="custom-scroll flex md:flex-col md:order-none order-1 gap-2 md:min-w-[89px] md:h-[500px] pb-2 md:overflow-y-auto md:overflow-x-visible overflow-x-auto">
         <button
           v-for="(photo, index) in productData?.photos ?? []"
@@ -73,6 +71,17 @@ setInterval(() => {
       </figure>
     </section>
 
+    <!-- 倒數計時 -->
+    <section class="py-4">
+      <div class="flex items-center justify-center text-5xl">
+        <p class="font-clockicons">
+          {{ countDownDays }}
+          <small class="text-base">天</small>
+          {{ countDownTime }}
+        </p>
+      </div>
+    </section>
+
     <!-- 商品資訊 -->
     <section class="flex flex-col gap-4 md:ml-[97px] px-3 border-l-4 border-main-brown md:text-lg text-main-swamp-green">
       <p>{{ productData.name }}</p>
@@ -82,15 +91,11 @@ setInterval(() => {
           NT$ {{ productData.price.toLocaleString() }}
         </b>
       </div>
-      <div class="flex items-center gap-2">
-        決標剩餘時間：
-        <p>{{ countDownTime }}</p>
-      </div>
       <p class="wysiwyg-customize-block" v-html="productData.description"></p>
     </section>
 
     <!-- 競標按鈕 -->
-    <section class="flex justify-center pt-10">
+    <section v-if="countDownTime !== '已結標'" class="flex justify-center pt-10">
       <button type="button" class="py-2 px-8 rounded-lg bg-[#CCCAB1]/70 text-lg font-bold text-main-swamp-green/80 transition-colors hover:bg-[#CCCAB1]">
         我要競標
       </button>
