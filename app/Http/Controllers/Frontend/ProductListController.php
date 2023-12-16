@@ -30,6 +30,16 @@ class ProductListController extends Controller
     // 前往商品詳細頁
     public function detail(Request $request)
     {
-        return Inertia::render('Frontend/ProductDetail');
+        $params = (object) [
+            'id' => (int) ($request->id ?? 0),
+        ];
+
+        $rtData = $this->productListService->getProductDetailData($params);
+
+        if (!$rtData) {
+            return redirect(route('product.detail'));
+        }
+
+        return Inertia::render('Frontend/ProductDetail', $rtData);
     }
 }
