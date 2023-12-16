@@ -11,6 +11,46 @@ const rtData = computed(() => props.response?.rt_data ?? {});
 const productData = computed(() => rtData.value.productData ?? {});
 const selectedPhoto = computed(() => productData.value.photos[selectedPhotoIndex.value] ?? {});
 const selectedPhotoIndex = ref(productData.value?.cover_photo_index ?? 0);
+const endTime = new Date(productData.value.end_time).getTime();
+
+// 決標剩餘時間倒數計時器
+const countDown = () => {
+  const nowTime = new Date().getTime();
+  const time = endTime - nowTime;
+  const days = Math.floor(time / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((time % (1000 * 60)) / 1000);
+
+  let resultString = '';
+  if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
+    resultString = '已結標';
+  } else {
+    if (days > 0) {
+      resultString += `${days}天 `;
+    }
+    if (hours > 0) {
+      resultString += `${hours}時 `;
+    }
+    if (minutes > 0) {
+      resultString += `${minutes}分 `;
+    }
+    if (seconds > 0) {
+      resultString += `${seconds}秒 `;
+    }
+  }
+
+  return resultString;
+};
+
+const countDownTime = ref(countDown());
+
+setInterval(() => {
+  countDownTime.value = countDown();
+  if (countDownTime.value === '已結標') {
+    clearInterval();
+  }
+}, 1000);
 </script>
 
 <template>
@@ -34,9 +74,18 @@ const selectedPhotoIndex = ref(productData.value?.cover_photo_index ?? 0);
     </section>
 
     <!-- 商品資訊 -->
-    <section class="flex flex-col gap-4 md:ml-[97px] px-3 border-l-4 border-main-brown text-lg">
+    <section class="flex flex-col gap-4 md:ml-[97px] px-3 border-l-4 border-main-brown md:text-lg text-main-swamp-green">
       <p>{{ productData.name }}</p>
-      <b>NT${{ productData.price.toLocaleString() }}</b>
+      <div class="flex items-center gap-2">
+        目前競標價格：
+        <b class="text-main-light-red">
+          NT$ {{ productData.price.toLocaleString() }}
+        </b>
+      </div>
+      <div class="flex items-center gap-2">
+        決標剩餘時間：
+        <p>{{ countDownTime }}</p>
+      </div>
       <p class="wysiwyg-customize-block" v-html="productData.description"></p>
     </section>
 

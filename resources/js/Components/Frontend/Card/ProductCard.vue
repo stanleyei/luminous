@@ -18,7 +18,7 @@ defineProps({
         <span>{{ product.end_time }}</span>
       </time>
       <b class="px-3">
-        起標價：NT${{ product.price.toLocaleString() }}
+        起標價：NT$ {{ product.price.toLocaleString() }}
       </b>
     </figure>
   </Link>

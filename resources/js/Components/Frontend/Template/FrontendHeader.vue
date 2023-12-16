@@ -23,6 +23,12 @@ const searchKeywords = () => {
     preserveScroll: true,
   });
 };
+
+// 關閉搜尋欄
+const closeSearchBar = () => {
+  showSearchBar.value = false;
+  keywords.value = '';
+};
 </script>
 
 <template>
@@ -75,9 +81,9 @@ const searchKeywords = () => {
         <label class="flex-1">
           <input v-model="keywords" type="search" placeholder="搜尋商品" class="w-full py-1 border border-gray-300 rounded-md px-3" @keydown.enter="searchKeywords" @search="searchKeywords">
         </label>
-        <button type="button" @click="showSearchBar = !showSearchBar">
+        <button type="button" @click="closeSearchBar">
           <svg class="h-6 w-6 mx-auto" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-            <title>導覽列選單</title>
+            <title>關閉搜尋欄</title>
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>

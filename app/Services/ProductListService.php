@@ -73,10 +73,10 @@ class ProductListService
                 'id' => $product->id,
                 // 商品名稱
                 'name' => $product->name,
-                // 商品開始時間
-                'start_time' => date('Y-m-d H:i:s', strtotime($product->start_time)),
-                // 商品價格
-                'price' => $product->price,
+                // 競標結束時間
+                'end_time' => date('Y-m-d\TH:i:s', strtotime($product->end_time)),
+                // 目前最高競標價格
+                'price' => $product->scopeHeightestPrice(),
                 // 商品封面照片 index
                 'cover_photo_index' => $product->cover_photo_index,
                 // 商品描述

@@ -85,4 +85,13 @@ class Product extends Model
     {
         return $this->productPhotos[$this->cover_photo_index] ?? $this->productPhotos->first();
     }
+
+    /**
+     * 獲取目前競標最高價格
+     * @return int
+     */
+    public function scopeHeightestPrice()
+    {
+        return $this->userClients->max('pivot.bid_price') ?? $this->price;
+    }
 }
