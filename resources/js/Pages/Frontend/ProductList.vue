@@ -1,11 +1,56 @@
 <!-- 前台商品列表頁 -->
 
 <script setup>
+import { router } from '@inertiajs/vue3';
 
+const props = defineProps({
+  response: Object,
+});
+
+const rtData = computed(() => props.response?.rt_data ?? {});
+const paginationData = computed(() => rtData.value.productData ?? {});
+const productTypeOption = computed(() => rtData.value.productTypeOption ?? []);
+const currentType = computed(() => rtData.value.currentType ?? 0);
+
+/**
+ * 更換商品種類
+ * @param {number} type 商品種類
+ */
+const changeType = (type) => {
+  router.get(route('product.index'), { type }, {
+    preserveState: true,
+    preserveScroll: true,
+  });
+};
 </script>
 
 <template>
-  <div></div>
+  <div class="py-7 px-4">
+    <div class="flex justify-between items-center">
+      <h2 class="font-bold text-xl">商品列表</h2>
+      <select class="rounded-xl cursor-pointer" @change="(e) => changeType(Number(e.target.value))">
+        <option value="" :selected="!currentType">全部商品</option>
+        <option
+          v-for="typeOption in productTypeOption"
+          :key="typeOption.id"
+          :value="typeOption.id"
+          :selected="currentType === typeOption.id"
+        >
+          {{ typeOption.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- 商品列表 -->
+    <div class="grid @3xl:grid-cols-3 grid-cols-2 gap-4 mx-auto py-20 px-4">
+      <ProductCard v-for="product in paginationData?.data ?? []" :key="product.id" :product="product" />
+    </div>
+
+    <!-- 分頁器 -->
+    <div class="flex justify-center">
+      <Pagination :pagination-data="paginationData" />
+    </div>
+  </div>
 </template>
 
 <style scoped>

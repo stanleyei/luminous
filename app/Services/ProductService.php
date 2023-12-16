@@ -22,17 +22,17 @@ class ProductService
     {
         $productData = Product::with('productPhotos')
             ->select('id', 'type', 'name', 'status', 'start_time', 'price', 'cover_photo_index', 'created_at')
-            ->where('type', $params->type)
-            ->where('name', 'like', "%{$params->keywords}%");
+            ->where('name', 'like', "%{$params->keywords}%")
+            ->when($params->type, fn ($query) => $query->where('type', $params->type));
 
         // 依照指定欄位正倒序
         $rules = [
             // 傳 1 或 2 日期排序
-            'start_time' => $params->sortStartTime,
+            'start_time' => $params?->sortStartTime ?? 0,
             // 傳 1 或 2 名稱排序
-            'name' => $params->sortName,
+            'name' => $params?->sortName ?? 0,
             // 傳 1 或 2 發布單位排序
-            'price' => $params->sortPrice,
+            'price' => $params?->sortPrice ?? 0,
         ];
         columnSort($productData, $rules);
 

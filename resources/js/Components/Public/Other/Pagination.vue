@@ -29,7 +29,7 @@ const props = defineProps({
 });
 
 const isBackend = computed(() => usePage()?.url?.includes('/admin'));
-const btnColor = ref(isBackend.value ? '#ABABAB' : '#2A79BE');
+const btnColor = ref(isBackend.value ? '#ABABAB' : '#333111');
 const textColor = ref(isBackend.value ? 'black' : 'white');
 
 // 計算總頁數

@@ -8,7 +8,7 @@
   <section id="frontend-layout" class="max-w-3xl mx-auto bg-white">
     <FrontendHeader />
 
-    <main class="pt-[65px] overflow-x-hidden">
+    <main class="min-h-[calc(100dvh-136px)] pt-[65px] overflow-x-hidden">
       <slot />
     </main>
 
