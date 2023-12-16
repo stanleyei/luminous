@@ -16,9 +16,7 @@ const submit = () => {
 </script>
 
 <template>
-  <div id="backend-register">
-    <Head title="註冊" />
-
+  <div>
     <form @submit.prevent="submit">
       <div>
         <InputLabel for="name" value="姓名" required />
@@ -29,7 +27,6 @@ const submit = () => {
           class="mt-1 block w-full"
           v-model="form.name"
           required
-          autofocus
           autocomplete="name"
         />
 

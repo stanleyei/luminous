@@ -47,7 +47,7 @@ const closeSearchBar = () => {
                 <img :src="iconSearch" alt="放大鏡圖示" width="22" height="22" class="w-[22px]">
               </button>
             </div>
-            <Link href="" title="(跳轉頁面)前往登入">
+            <Link :href="route('login')" title="(跳轉頁面)前往登入">
               <img :src="iconUser" alt="使用者圖示" width="22" height="22" class="w-[22px]">
             </Link>
             <button type="button">

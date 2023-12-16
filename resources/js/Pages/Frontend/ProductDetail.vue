@@ -52,10 +52,13 @@ setInterval(() => {
 </script>
 
 <template>
-  <div class="md:min-h-[calc(100dvh-201px)] min-h-[calc(100dvh-177px)] py-7 px-4">
+  <div class="md:min-h-[calc(100dvh-201px)] min-h-[calc(100dvh-177px)] pt-4 pb-7 px-4">
     <!-- 商品照片 -->
-    <section class="flex md:flex-row flex-col gap-x-2 gap-y-2">
-      <aside class="custom-scroll flex md:flex-col md:order-none order-1 gap-2 md:min-w-[89px] md:h-[500px] pb-2 md:overflow-y-auto md:overflow-x-visible overflow-x-auto">
+    <section class="flex flex-col gap-y-2 pb-6">
+      <figure class="flex items-center md:h-[500px] h-[250px] bg-gray-100">
+        <img :src="selectedPhoto.photo_path" :alt="selectedPhoto.photo_alt">
+      </figure>
+      <aside class="custom-scroll flex gap-2 pb-2 overflow-x-auto">
         <button
           v-for="(photo, index) in productData?.photos ?? []"
           :key="photo.id"
@@ -66,24 +69,19 @@ setInterval(() => {
           <img :src="photo.photo_path" :alt="photo.photo_alt" class="w-full">
         </button>
       </aside>
-      <figure class="flex items-center md:h-[500px] h-[250px] bg-gray-100">
-        <img :src="selectedPhoto.photo_path" :alt="selectedPhoto.photo_alt">
-      </figure>
     </section>
 
     <!-- 倒數計時 -->
-    <section class="py-4">
-      <div class="flex items-center justify-center text-5xl">
-        <p class="font-clockicons">
-          {{ countDownDays }}
-          <small class="text-base">天</small>
-          {{ countDownTime }}
-        </p>
+    <section class="flex items-center justify-center py-2 bg-main-swamp-green/80 md:text-7xl text-5xl text-white font-clockicons">
+      <div v-if="countDownDays" class="flex items-end">
+        <p>{{ countDownDays }}</p>
+        <small class="text-base font-bold">天</small>
       </div>
+      <p>{{ countDownTime }}</p>
     </section>
 
     <!-- 商品資訊 -->
-    <section class="flex flex-col gap-4 md:ml-[97px] px-3 border-l-4 border-main-brown md:text-lg text-main-swamp-green">
+    <section class="flex flex-col gap-4 pt-4 px-3 border-x-4 border-main-swamp-green/80 md:text-lg text-main-swamp-green">
       <p>{{ productData.name }}</p>
       <div class="flex items-center gap-2">
         目前競標價格：
@@ -95,7 +93,7 @@ setInterval(() => {
     </section>
 
     <!-- 競標按鈕 -->
-    <section v-if="countDownTime !== '已結標'" class="flex justify-center pt-10">
+    <section v-if="countDownTime !== '已結標'" class="flex justify-center pt-10 pb-4 border-x-4 border-b-4 border-main-swamp-green/80">
       <button type="button" class="py-2 px-8 rounded-lg bg-[#CCCAB1]/70 text-lg font-bold text-main-swamp-green/80 transition-colors hover:bg-[#CCCAB1]">
         我要競標
       </button>
