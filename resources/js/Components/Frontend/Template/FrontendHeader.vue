@@ -59,7 +59,12 @@ const searchKeywords = () => {
           </button>
 
           <Transition name="fade" mode="out-in">
-            <FrontendHeaderNav v-show="showNavigationDropdown" class="absolute top-[70px] right-0 flex flex-col rounded-lg bg-white shadow-lg" />
+            <nav v-show="showNavigationDropdown" class="absolute top-[70px] right-0 flex flex-col items-center gap-y-3 gap-x-5 p-3 rounded-lg bg-white shadow-lg">
+              <Link :href="route('product.index')" title="前往所有商品(跳轉頁面)" class="nav-link" @click="showNavigationDropdown = !showNavigationDropdown">
+                所有商品
+              </Link>
+              <a href="/" title="前往Instagram(另開新頁)" class="nav-link">Instagram</a>
+            </nav>
           </Transition>
         </section>
       </div>
@@ -68,7 +73,7 @@ const searchKeywords = () => {
           <img :src="iconSearch" alt="放大鏡圖示" width="22" height="22" class="w-[22px]">
         </button>
         <label class="flex-1">
-          <input v-model="keywords" type="text" placeholder="搜尋商品" class="w-full py-1 border border-gray-300 rounded-md px-3">
+          <input v-model="keywords" type="search" placeholder="搜尋商品" class="w-full py-1 border border-gray-300 rounded-md px-3" @keydown.enter="searchKeywords" @search="searchKeywords">
         </label>
         <button type="button" @click="showSearchBar = !showSearchBar">
           <svg class="h-6 w-6 mx-auto" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -82,6 +87,10 @@ const searchKeywords = () => {
 </template>
 
 <style scoped>
+.nav-link {
+  @apply inline-block w-full py-1 px-3 rounded text-center break-keep hover:bg-gray-200/50 transition-colors;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   @apply transition-opacity;

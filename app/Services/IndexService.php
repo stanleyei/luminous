@@ -42,7 +42,7 @@ class IndexService
     public function getProductData()
     {
         $productData = Product::with('productPhotos')
-            ->select('id', 'type', 'name', 'status', 'start_time', 'price', 'cover_photo_index', 'created_at')
+            ->select('id', 'type', 'name', 'status', 'start_time', 'end_time', 'price', 'cover_photo_index', 'created_at')
             ->active()
             ->orderBy('created_at', 'desc')
             ->take(6)

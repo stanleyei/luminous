@@ -2,6 +2,7 @@
 
 <script setup>
 import { router } from '@inertiajs/vue3';
+import { twMerge } from 'tailwind-merge';
 
 const props = defineProps({
   response: Object,
@@ -25,7 +26,7 @@ const changeType = (type) => {
 </script>
 
 <template>
-  <div class="flex flex-col justify-between gap-y-4 min-h-[calc(100dvh-201px)] py-7 px-4">
+  <div class="flex flex-col justify-between gap-y-4 md:min-h-[calc(100dvh-201px)] min-h-[calc(100dvh-177px)] py-7 px-4">
     <div class="flex justify-between items-center">
       <h2 class="font-bold text-xl">商品列表</h2>
       <select class="rounded-xl cursor-pointer" @change="(e) => changeType(Number(e.target.value))">
@@ -42,8 +43,9 @@ const changeType = (type) => {
     </div>
 
     <!-- 商品列表 -->
-    <div class="grid @3xl:grid-cols-3 grid-cols-2 gap-4 mx-auto py-20 px-4">
+    <div :class="twMerge('grid grid-cols-2 gap-4 mx-auto py-5', !paginationData?.data?.length && 'grid-cols-1')">
       <ProductCard v-for="product in paginationData?.data ?? []" :key="product.id" :product="product" />
+      <p v-show="!paginationData?.data?.length" class="md:text-3xl text-xl">查無商品資料</p>
     </div>
 
     <!-- 分頁器 -->
@@ -52,7 +54,3 @@ const changeType = (type) => {
     </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>

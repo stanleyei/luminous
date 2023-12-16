@@ -25,7 +25,8 @@ class ProductListService
         $productData = Product::with('productPhotos')
             ->select('id', 'type', 'name', 'status', 'start_time', 'end_time', 'price', 'cover_photo_index', 'created_at')
             ->active()
-            ->where($whereQuery)
+            ->where('name', 'like', "%{$params->keywords}%")
+            ->when($params->type, fn ($query) => $query->where('type', $params->type))
             ->orderBy('created_at', 'desc');
 
         $data = [
