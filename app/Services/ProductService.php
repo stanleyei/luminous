@@ -185,7 +185,11 @@ class ProductService
      */
     public function deleteProduct($id)
     {
-        $productData = Product::with('productPhotos')->find($id);
+        $productData = Product::with('userClients', 'productPhotos')->find($id);
+
+        if (count($productData->userClients)) {
+            return ['message' => rtFormat($id, 0, '此商品已有人競標，無法刪除')];
+        }
 
         // 刪除商品照片
         $this->deletePhoto($productData, $productData->productPhotos->pluck('id')->toArray());

@@ -71,9 +71,16 @@ setInterval(() => {
       </aside>
     </section>
 
+    <!-- 競標按鈕 -->
+    <section v-if="countDownTime !== '已結標'" class="pb-4">
+      <button type="button" class="w-full py-2 px-8 rounded-lg bg-[#CCCAB1]/70 text-lg font-bold text-main-swamp-green/80 transition-colors hover:bg-[#CCCAB1]">
+        我要競標
+      </button>
+    </section>
+
     <!-- 倒數計時 -->
     <section class="flex items-center justify-center py-2 bg-main-swamp-green/80 md:text-7xl text-5xl text-white font-clockicons">
-      <div v-if="countDownDays" class="flex items-end">
+      <div v-if="countDownDays" class="flex items-end pr-2">
         <p>{{ countDownDays }}</p>
         <small class="text-base font-bold">天</small>
       </div>
@@ -81,7 +88,7 @@ setInterval(() => {
     </section>
 
     <!-- 商品資訊 -->
-    <section class="flex flex-col gap-4 pt-4 px-3 border-x-4 border-main-swamp-green/80 md:text-lg text-main-swamp-green">
+    <section class="flex flex-col gap-4 py-4 px-3 border-x-4 border-b-4 border-main-swamp-green/80 md:text-lg text-main-swamp-green">
       <p>{{ productData.name }}</p>
       <div class="flex items-center gap-2">
         目前競標價格：
@@ -90,13 +97,6 @@ setInterval(() => {
         </b>
       </div>
       <p class="wysiwyg-customize-block" v-html="productData.description"></p>
-    </section>
-
-    <!-- 競標按鈕 -->
-    <section v-if="countDownTime !== '已結標'" class="flex justify-center pt-10 pb-4 border-x-4 border-b-4 border-main-swamp-green/80">
-      <button type="button" class="py-2 px-8 rounded-lg bg-[#CCCAB1]/70 text-lg font-bold text-main-swamp-green/80 transition-colors hover:bg-[#CCCAB1]">
-        我要競標
-      </button>
     </section>
   </div>
 </template>

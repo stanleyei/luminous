@@ -36,6 +36,18 @@ class AuthenticatedSessionController extends Controller
 
         $user = $request->user();
 
+        // 檢查帳號是否停權
+        if (!$user->status) {
+            Auth::guard('web')->logout();
+
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            return back()->with(['message' => '此帳號已被停權']);
+        }
+
+        // 檢查帳號是否為管理員
         if ($user->role === 1) {
             return redirect(RouteServiceProvider::HOME);
         } else {
