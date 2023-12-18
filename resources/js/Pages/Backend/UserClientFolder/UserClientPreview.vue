@@ -52,7 +52,7 @@ setBreadcrumb([
           <table class="w-full text-center">
             <thead>
               <tr>
-                <th scope="col" class="backend-table-th min-w-[300px] w-[300px]">
+                <th scope="col" class="backend-table-th min-w-[180px] w-[180px]">
                   封面照片
                 </th>
                 <th scope="col" class="backend-table-th min-w-[100px] w-[100px]">
@@ -68,7 +68,7 @@ setBreadcrumb([
             </thead>
             <tbody>
               <tr v-for="product in productData" :key="product.id">
-                <td class="backend-table-td break-all w-[300px]">
+                <td class="backend-table-td break-all w-[180px]">
                   <figure class="w-full aspect-video">
                     <img v-if="product.cover_photo_path" :src="product.cover_photo_path" alt="商品圖片" class="h-[200px] object-cover rounded-md" width="356">
                     <div v-else class="inset-0 flex items-center justify-center w-full h-[200px] text-gray-400 bg-gray-100 rounded-md text-2xl">

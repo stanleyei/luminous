@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\User;
-
 class ClientCenterService
 {
     public function __construct()
@@ -34,7 +32,7 @@ class ClientCenterService
         ];
 
         $data = [
-            'user' => $userData,
+            'userClientData' => $userData,
             'clientProducts' => $clientProducts,
         ];
 

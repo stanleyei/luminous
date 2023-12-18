@@ -31,6 +31,7 @@ const submit = () => {
 
   sendRequest(route('product.bid'), 'post', {
     data: { id: props.productData.id, price: bidPrice.value },
+    successContent: '出價成功',
   });
 };
 

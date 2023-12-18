@@ -67,6 +67,9 @@ const closeSearchBar = () => {
 
           <Transition name="fade" mode="out-in">
             <nav v-show="showNavigationDropdown" class="absolute top-[70px] right-0 flex flex-col items-center gap-y-3 gap-x-5 p-3 rounded-lg bg-white shadow-lg">
+              <Link v-if="!user" :href="route('login')" title="前往登入(跳轉頁面)" class="nav-link">
+                登入
+              </Link>
               <Link :href="route('product.index')" title="前往所有商品(跳轉頁面)" class="nav-link" @click="showNavigationDropdown = !showNavigationDropdown">
                 所有商品
               </Link>
