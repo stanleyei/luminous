@@ -8,7 +8,7 @@ const menuLinks = Object.freeze([
   {
     id: 'clients',
     name: '客戶管理',
-    path: 'dashboard',
+    path: 'client.list',
   },
   {
     id: 'banners',

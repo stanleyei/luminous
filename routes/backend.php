@@ -4,6 +4,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\UserClientController;
 
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', function () {
@@ -33,6 +34,16 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
         Route::delete('destroy', [ProductController::class, 'destroy'])->name('product.destroy');
         // 上傳商品照片
         Route::post('upload-photo', [ProductController::class, 'uploadPhoto'])->name('product.upload');
+    });
+
+    // 後台會員管理
+    Route::prefix('client')->group(function () {
+        // 後台會員管理列表頁
+        Route::get('/', [UserClientController::class, 'index'])->name('client.list');
+        // 後台會員管理預覽頁
+        Route::get('preview', [UserClientController::class, 'preview'])->name('client.preview');
+        // 切換會員狀態
+        Route::put('toggle-status', [UserClientController::class, 'toggleStatus'])->name('client.status');
     });
 
     // 後台 Banner 管理
