@@ -37,7 +37,7 @@ const closeSearchBar = () => {
     <Transition name="fade" mode="out-in">
       <div v-if="!showSearchBar" class="relative flex items-center h-full mx-auto">
         <h1 class="pr-4">
-          <Link href="/" title="回到首頁(跳轉頁面)">
+          <Link href="/" title="回到首頁(跳轉頁面)" class="font-clockicons">
             <img :src="logoLuminous" alt="LOGO" width="200" class="w-[150px]">
           </Link>
         </h1>

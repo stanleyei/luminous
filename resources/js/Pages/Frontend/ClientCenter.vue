@@ -16,7 +16,7 @@ const productData = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-y-4 md:min-h-[calc(100dvh-201px)] min-h-[calc(100dvh-177px)] py-7 px-4">
+  <div class="relative flex flex-col gap-y-4 md:min-h-[calc(100dvh-201px)] min-h-[calc(100dvh-177px)] py-7 px-4">
     <section class="flex justify-between items-center">
       <h2 class="font-bold text-xl">{{ selectedStatus === 1 ? '競標中商品' : '已得標商品' }}</h2>
       <select v-model="selectedStatus" class="rounded-xl cursor-pointer">
@@ -26,9 +26,9 @@ const productData = computed(() => {
     </section>
 
     <!-- 商品列表 -->
-    <section :class="twMerge('grid grid-cols-2 gap-4 mx-auto py-5', !productData?.length && 'grid-cols-1')">
+    <section :class="twMerge('grid md:grid-cols-2 gap-4 mx-auto py-5', !productData?.length && 'grid-cols-1')">
       <ProductCard v-for="product in productData ?? []" :key="product.id" :product="product" />
-      <p v-show="!productData?.length" class="md:text-3xl text-xl">查無商品資料</p>
+      <p v-show="!productData?.length" class="absolute top-1/2 left-1/2 -translate-x-1/2 md:text-3xl text-xl">查無商品資料</p>
     </section>
   </div>
 </template>

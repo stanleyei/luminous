@@ -48,7 +48,7 @@ class ProductListController extends Controller
     {
         $request->validate([
             'id' => 'required|integer|exists:products,id',
-            'bid_price' => 'required|integer|min:1|max:99999999',
+            'price' => 'required|integer|min:1|max:99999999',
         ]);
 
         $user = $request->user();
@@ -57,7 +57,7 @@ class ProductListController extends Controller
         $params = (object) [
             'user_client_id' => $userClient->id,
             'product_id' => (int) $request->id,
-            'bid_price' => (int) $request->bid_price,
+            'bid_price' => (int) $request->price,
         ];
 
         $rtData = $this->productListService->bidProduct($params);

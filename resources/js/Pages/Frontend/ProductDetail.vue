@@ -11,6 +11,7 @@ const rtData = computed(() => props.response?.rt_data ?? {});
 const productData = computed(() => rtData.value.productData ?? {});
 const selectedPhoto = computed(() => productData.value.photos[selectedPhotoIndex.value] ?? {});
 const selectedPhotoIndex = ref(productData.value?.cover_photo_index ?? 0);
+const showBidModal = ref(false);
 
 // 決標剩餘時間倒數計時器
 const countDown = () => {
@@ -73,10 +74,13 @@ setInterval(() => {
 
     <!-- 競標按鈕 -->
     <section v-if="countDownTime !== '已結標'" class="pb-4">
-      <button type="button" class="w-full py-2 px-8 rounded-lg bg-[#CCCAB1]/70 text-lg font-bold text-main-swamp-green/80 transition-colors hover:bg-[#CCCAB1]">
+      <button type="button" class="w-full py-2 px-8 rounded-lg bg-[#CCCAB1]/70 text-lg font-bold text-main-swamp-green/80 transition-colors hover:bg-[#CCCAB1]" @click="showBidModal = true">
         我要競標
       </button>
     </section>
+    <Teleport to="body">
+      <BidModal :show="showBidModal" :product-data="productData" @close="showBidModal = false" />
+    </Teleport>
 
     <!-- 倒數計時 -->
     <section class="flex items-center justify-center py-2 bg-main-swamp-green/80 md:text-7xl text-5xl text-white font-clockicons">
