@@ -44,7 +44,7 @@ class AuthenticatedSessionController extends Controller
 
             $request->session()->regenerateToken();
 
-            return back()->with(['message' => '此帳號已被停權']);
+            return back()->with(['message' => rtFormat($user->id, 0, '此帳號已被停權')]);
         }
 
         // 檢查帳號是否為管理員

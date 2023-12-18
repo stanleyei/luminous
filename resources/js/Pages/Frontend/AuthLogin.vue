@@ -1,5 +1,5 @@
 <script setup>
-import { useForm } from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
 import { getLocal } from '@/Composables/useStorage';
 
 defineProps({
@@ -7,6 +7,8 @@ defineProps({
     type: Boolean,
   },
 });
+
+const flashMessage = computed(() => usePage().props?.flash?.message);
 
 /**
  * 獲取localStorage中的資料並設置至表單
@@ -48,6 +50,20 @@ const submit = () => {
 onMounted(() => {
   setLocalStorage();
 });
+
+const { useAlert } = useAlertStore();
+watch(
+  () => flashMessage.value,
+  () => {
+    if (flashMessage.value?.rt_code === 0) {
+      useAlert({
+        type: 'fail',
+        content: flashMessage.value?.rt_message,
+      });
+    }
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
