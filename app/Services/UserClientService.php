@@ -4,10 +4,11 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Models\UserClient;
+use App\Presenters\ProductPresenter;
 
 class UserClientService
 {
-    public function __construct()
+    public function __construct(protected ProductPresenter $productPresenter)
     {
     }
 
@@ -58,7 +59,7 @@ class UserClientService
     public function previewUserClient($id)
     {
         $userClient = UserClient::with('user', 'products')
-            ->select('id', 'user_id', 'phone')
+            ->select('id', 'user_id')
             ->whereHas('user', function ($query) use ($id) {
                 $query->where('id', $id);
             })
@@ -70,12 +71,12 @@ class UserClientService
             'userClientData' => [
                 'id' => $user->id,
                 'email' => $user->email,
-                'phone' => $userClient->phone,
                 'products' => $userClient->products->map(function ($item) {
                     return [
                         'id' => $item->id,
+                        'type' => $this->productPresenter->getProductType($item->type)?->name ?? '',
                         'name' => $item->name,
-                        'price' => $item->price,
+                        'cover_photo_path' => $item->coverPhoto()->photo_path ?? '',
                         'pivot_status' => $item->pivot->status,
                         'bid_price' => $item->pivot->bid_price,
                     ];
