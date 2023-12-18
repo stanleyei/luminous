@@ -93,7 +93,7 @@ onMounted(() => {
         <div class="mt-14">
           <div class="flex justify-center">
             <PrimaryButton
-              class="py-2 px-20 !bg-main-yellow !text-main-swamp-green"
+              class="py-2 !px-20 !bg-main-yellow !text-main-swamp-green"
               :class="{ 'opacity-25': form.processing }"
               :disabled="form.processing"
             >

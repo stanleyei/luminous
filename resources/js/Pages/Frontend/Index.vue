@@ -1,6 +1,7 @@
 <!-- 前台首頁 -->
 
 <script setup>
+import { usePage } from '@inertiajs/vue3';
 import iconAngleLeft from '/images/icon/icon-angle-left.svg';
 import iconAngleRight from '/images/icon/icon-angle-right.svg';
 
@@ -11,10 +12,25 @@ const props = defineProps({
 const rtData = computed(() => props.response?.rt_data ?? {});
 const bannerData = computed(() => rtData.value?.banners ?? []);
 const productData = computed(() => rtData.value?.products ?? []);
+const flashMessage = computed(() => usePage().props?.flash?.message);
 
 // swiper前後按鈕
 const btnPrevBanner = ref(null);
 const btnNextBanner = ref(null);
+
+// 設定確認彈跳視窗參數
+const { useAlert } = useAlertStore();
+watch(
+  () => flashMessage.value,
+  () => {
+    if (!flashMessage.value?.rt_code) return;
+    useAlert({
+      type: 'success',
+      content: '已成功註冊',
+    });
+  },
+  { immediate: true },
+);
 </script>
 
 <template>

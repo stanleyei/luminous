@@ -7,6 +7,7 @@ import iconShoppingCart from '/images/icon/icon-shopping-cart.svg';
 import iconUser from '/images/icon/icon-user.svg';
 import iconSearch from '/images/icon/icon-search.svg';
 
+const user = computed(() => usePage().props.auth.user);
 const showNavigationDropdown = ref(false);
 const showSearchBar = ref(false);
 const keywords = ref('');
@@ -70,6 +71,9 @@ const closeSearchBar = () => {
                 所有商品
               </Link>
               <a href="/" title="前往Instagram(另開新頁)" class="nav-link">Instagram</a>
+              <Link v-if="user" :href="route('logout')" class="nav-link" type="button" method="post" as="button">
+                登出
+              </Link>
             </nav>
           </Transition>
         </section>

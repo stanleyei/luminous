@@ -2,8 +2,8 @@
 import { useForm } from '@inertiajs/vue3';
 
 const form = useForm({
-  name: '',
   email: '',
+  phone: '',
   password: '',
   password_confirmation: '',
 });
@@ -16,80 +16,84 @@ const submit = () => {
 </script>
 
 <template>
-  <div>
-    <form @submit.prevent="submit">
-      <div>
-        <InputLabel for="name" value="姓名" required />
+  <div class="flex justify-center items-center md:min-h-[calc(100dvh-201px)] min-h-[calc(100dvh-177px)] px-4">
+    <section class="w-96 border-4 border-main-swamp-green/80 text-main-swamp-green">
+      <RegisterLoginNav />
+      <form class="py-8 px-4" @submit.prevent="submit">
+        <label>
+          <TextInput
+            id="email"
+            type="email"
+            class="mt-1 block w-full"
+            v-model="form.email"
+            placeholder="請輸入Email"
+            required
+            autocomplete="username"
+          />
 
-        <TextInput
-          id="name"
-          type="text"
-          class="mt-1 block w-full"
-          v-model="form.name"
-          required
-          autocomplete="name"
-        />
+          <InputError class="mt-2" :message="form.errors.email" />
+        </label>
 
-        <InputError class="mt-2" :message="form.errors.name" />
-      </div>
+        <label class="block mt-4">
+          <TextInput
+            id="phone"
+            type="text"
+            class="mt-1 block w-full"
+            v-model="form.phone"
+            placeholder="請輸入手機號碼"
+            minlength="10"
+            maxlength="10"
+            pattern="^09\d{8}$"
+            required
+          />
 
-      <div class="mt-4">
-        <InputLabel for="email" value="Email" required />
+          <InputError class="mt-2" :message="form.errors.name" />
+        </label>
 
-        <TextInput
-          id="email"
-          type="email"
-          class="mt-1 block w-full"
-          v-model="form.email"
-          required
-          autocomplete="username"
-        />
+        <label class="block mt-4">
+          <TextInput
+            id="password"
+            type="password"
+            class="mt-1 block w-full"
+            v-model="form.password"
+            placeholder="請輸入密碼"
+            minlength="8"
+            maxlength="16"
+            required
+            autocomplete="new-password"
+          />
 
-        <InputError class="mt-2" :message="form.errors.email" />
-      </div>
+          <InputError class="mt-2" :message="form.errors.password" />
+        </label>
 
-      <div class="mt-4">
-        <InputLabel for="password" value="密碼" required />
+        <label class="block mt-4">
+          <TextInput
+            id="password_confirmation"
+            type="password"
+            class="mt-1 block w-full"
+            v-model="form.password_confirmation"
+            placeholder="請再次輸入密碼"
+            minlength="8"
+            maxlength="16"
+            required
+            autocomplete="new-password"
+          />
 
-        <TextInput
-          id="password"
-          type="password"
-          class="mt-1 block w-full"
-          v-model="form.password"
-          required
-          autocomplete="new-password"
-        />
+          <InputError class="mt-2" :message="form.errors.password_confirmation" />
+        </label>
 
-        <InputError class="mt-2" :message="form.errors.password" />
-      </div>
-
-      <div class="mt-4">
-        <InputLabel for="password_confirmation" value="再次輸入密碼" required />
-
-        <TextInput
-          id="password_confirmation"
-          type="password"
-          class="mt-1 block w-full"
-          v-model="form.password_confirmation"
-          required
-          autocomplete="new-password"
-        />
-
-        <InputError class="mt-2" :message="form.errors.password_confirmation" />
-      </div>
-
-      <div class="flex items-center justify-end mt-4">
-        <Link
-          :href="route('login')"
-          class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >
-          已經有帳號?
-        </Link>
-
-        <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-          註冊
-        </PrimaryButton>
-      </div>
-    </form>
+        <div class="mt-14">
+          <div class="flex justify-center">
+            <PrimaryButton
+              class="py-2 !px-20 !bg-main-yellow !text-main-swamp-green"
+              :class="{ 'opacity-25': form.processing }"
+              :disabled="form.processing"
+            >
+              註冊
+            </PrimaryButton>
+          </div>
+        </div>
+      </form>
+    </section>
   </div>
 </template>
