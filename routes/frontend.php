@@ -11,6 +11,7 @@ Route::get('/', [IndexController::class, 'index'])->name('home');
 Route::prefix('product')->group(function () {
     Route::get('/', [ProductListController::class, 'index'])->name('product.index');
     Route::get('/detail', [ProductListController::class, 'detail'])->name('product.detail');
+    Route::post('/bid', [ProductListController::class, 'bid'])->middleware(['auth', 'role.weight:2'])->name('product.bid');
 });
 
 // 前台會員中心

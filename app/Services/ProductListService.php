@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Product;
+use App\Models\UserClientProduct;
 use App\Presenters\ProductPresenter;
 
 class ProductListService
@@ -67,6 +68,20 @@ class ProductListService
             return null;
         }
 
+        // 檢查目前會員是否競標過該產品
+        $is_bid = 0;
+        if (auth()->check() && auth()->user()?->userClient) {
+            $userClientId = auth()->user()->userClient->id;
+            $whereQuerys = [
+                ['user_client_id', $userClientId],
+                ['product_id', $product->id],
+                ['status', 1],
+            ];
+
+            $userClientProduct = UserClientProduct::where($whereQuerys)->first();
+            $is_bid = $userClientProduct ? 1 : 0;
+        }
+
         $data = [
             'productData' => [
                 // 商品 id
@@ -77,6 +92,8 @@ class ProductListService
                 'end_time' => date('Y-m-d\TH:i:s', strtotime($product->end_time)),
                 // 目前最高競標價格
                 'price' => $product->scopeHeightestPrice(),
+                // 目前會員是否競標過該產品
+                'is_bid' => $is_bid,
                 // 商品封面照片 index
                 'cover_photo_index' => $product->cover_photo_index,
                 // 商品描述
@@ -92,5 +109,55 @@ class ProductListService
         ];
 
         return ['response' => rtFormat($data)];
+    }
+
+    /**
+     * 在會員產品清單中進行競標
+     * @param object $params 競標參數，包含會員ID、產品ID和競標價格
+     * @return array 包含訊息的陣列，訊息為競標成功後的會員產品ID
+     */
+    public function bidProduct($params)
+    {
+        $userClientId = $params->user_client_id;
+        $productId = $params->product_id;
+        $bidPrice = $params->bid_price;
+
+        $whereQuerys = [
+            ['user_client_id', $userClientId],
+            ['product_id', $productId],
+            ['status', 1],
+        ];
+
+        // 檢查價格是否高於目前最高競標價格
+        $product = Product::select('id', 'price', 'status', 'end_time')->find($productId);
+        if ($bidPrice <= $product->scopeHeightestPrice()) {
+            return ['message' => rtFormat($bidPrice, 0, '競標價格必須高於目前最高競標價格')];
+        }
+
+        // 檢查商品是否已經下架
+        if ($product->status !== 1) {
+            return ['message' => rtFormat($productId, 0, '該商品已經下架')];
+        }
+
+        // 檢查競標時間是否已經結束
+        if (strtotime($product->end_time) < time()) {
+            return ['message' => rtFormat($productId, 0, '該商品競標時間已經結束')];
+        }
+
+        // 檢查會員是否已經競標過該產品，若有則更新價格，若無則新增
+        $userClientProduct = UserClientProduct::where($whereQuerys)->first();
+        if ($userClientProduct) {
+            $userClientProduct->update([
+                'bid_price' => $bidPrice,
+            ]);
+        } else {
+            UserClientProduct::create([
+                'user_client_id' => $userClientId,
+                'product_id' => $productId,
+                'bid_price' => $bidPrice,
+            ]);
+        }
+
+        return ['message' => rtFormat($productId)];
     }
 }

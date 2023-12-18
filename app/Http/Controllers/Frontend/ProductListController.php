@@ -42,4 +42,26 @@ class ProductListController extends Controller
 
         return Inertia::render('Frontend/ProductDetail', $rtData);
     }
+
+    // 競標商品
+    public function bid(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer|exists:products,id',
+            'bid_price' => 'required|integer|min:1|max:99999999',
+        ]);
+
+        $user = $request->user();
+        $userClient = $user->userClient;
+
+        $params = (object) [
+            'user_client_id' => $userClient->id,
+            'product_id' => (int) $request->id,
+            'bid_price' => (int) $request->bid_price,
+        ];
+
+        $rtData = $this->productListService->bidProduct($params);
+
+        return back()->with($rtData);
+    }
 }

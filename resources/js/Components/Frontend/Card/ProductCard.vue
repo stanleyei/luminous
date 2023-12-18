@@ -17,9 +17,11 @@ defineProps({
         決標時間：
         <span>{{ product.end_time }}</span>
       </time>
-      <b class="px-3">
-        起標價：NT$ {{ product.price.toLocaleString() }}
-      </b>
+      <div class="px-3">
+        <b v-if="product.highest_bid_price">目前最高價：NT$ {{ product.highest_bid_price.toLocaleString() }}</b>
+        <b v-else>起標價：NT$ {{ product.price.toLocaleString() }}</b>
+        <b v-if="product.bid_price">您的出價：NT$ {{ product.bid_price.toLocaleString() }}</b>
+      </div>
     </figure>
   </Link>
 </template>
