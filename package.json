@@ -4,7 +4,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build && vite build --ssr",
+        "build": "vite build",
         "lint": "eslint --fix --ext .vue,.jsx,.js,.cjs --ignore-path .gitignore .",
         "prepare": "is-ci || husky install"
     },
