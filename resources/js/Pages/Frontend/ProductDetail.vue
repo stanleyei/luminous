@@ -1,12 +1,14 @@
 <!-- 前台商品詳細頁 -->
 
 <script setup>
+import { usePage, router } from '@inertiajs/vue3';
 import { twMerge } from 'tailwind-merge';
 
 const props = defineProps({
   response: Object,
 });
 
+const user = computed(() => usePage().props.auth.user);
 const rtData = computed(() => props.response?.rt_data ?? {});
 const productData = computed(() => rtData.value.productData ?? {});
 const selectedPhoto = computed(() => productData.value.photos[selectedPhotoIndex.value] ?? {});
@@ -38,6 +40,31 @@ const countDown = () => {
 const padZero = (num) => {
   const str = String(num);
   return str.padStart(2, '0');
+};
+
+const { useAlert } = useAlertStore();
+
+const openBidModal = () => {
+  if (!user.value) {
+    useAlert({
+      type: 'warning',
+      cancelContent: '',
+      confirmContent: '前往登入',
+      confirm: () => router.get(route('login')),
+    });
+    return;
+  }
+
+  if (user.value.role === 1) {
+    useAlert({
+      type: 'warning',
+      content: '您是管理員，無法競標商品',
+      cancelContent: '',
+    });
+    return;
+  }
+
+  showBidModal.value = true;
 };
 
 const countDownDays = ref(countDown().days);
@@ -74,7 +101,7 @@ setInterval(() => {
 
     <!-- 競標按鈕 -->
     <section v-if="countDownTime !== '已結標'" class="pb-4">
-      <button type="button" class="w-full py-2 px-8 rounded-lg bg-[#CCCAB1]/70 text-lg font-bold text-main-swamp-green/80 transition-colors hover:bg-[#CCCAB1]" @click="showBidModal = true">
+      <button type="button" class="w-full py-2 px-8 rounded-lg bg-[#CCCAB1]/70 text-lg font-bold text-main-swamp-green/80 transition-colors hover:bg-[#CCCAB1]" @click="openBidModal">
         我要競標
       </button>
     </section>

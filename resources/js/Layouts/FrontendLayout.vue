@@ -1,17 +1,17 @@
 <!-- 前台模板 -->
 
-<script setup>
-
-</script>
+<script setup></script>
 
 <template>
-  <section id="frontend-layout" class="max-w-3xl mx-auto bg-white">
-    <FrontendHeader />
+  <section id="frontend-layout" class="h-[100dvh] overflow-x-hidden">
+    <div class="max-w-3xl mx-auto bg-white">
+      <FrontendHeader />
 
-    <main class="min-h-[calc(100dvh-136px)] pt-[65px] overflow-x-hidden">
-      <slot />
-    </main>
+      <main class="min-h-[calc(100dvh-136px)] pt-[65px]">
+        <slot />
+      </main>
 
-    <FrontendFooter />
+      <FrontendFooter />
+    </div>
   </section>
 </template>

@@ -34,7 +34,7 @@ watch(
 </script>
 
 <template>
-  <dialog ref="modalDialog" class="modal-dialog" :class="{ open: fadeEffect }" @cancel.prevent="() => {}">
+  <dialog ref="modalDialog" class="modal-dialog" :class="{ open: fadeEffect }">
     <slot />
   </dialog>
 </template>

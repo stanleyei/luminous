@@ -34,20 +34,6 @@ const submit = () => {
     successContent: '出價成功',
   });
 };
-
-// 當打開彈窗時，將html滾軸設定為不可滾動，且滾軸升至最頂
-watch(
-  () => props.show,
-  (val) => {
-    if (val) {
-      window.scrollTo({ top: 0 });
-      document.documentElement.style.overflow = 'hidden';
-    } else {
-      document.documentElement.style.overflow = 'auto';
-    }
-  },
-  { immediate: true },
-);
 </script>
 
 <template>

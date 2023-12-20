@@ -33,7 +33,7 @@ const closeSearchBar = () => {
 </script>
 
 <template>
-  <header class="fixed z-[2] top-0 left-1/2 -translate-x-1/2 max-w-3xl w-full h-[65px] px-3 bg-main-yellow shadow-md">
+  <header class="fixed z-[2] top-0 max-w-3xl w-full h-[65px] px-3 bg-main-yellow shadow-md">
     <Transition name="fade" mode="out-in">
       <div v-if="!showSearchBar" class="relative flex items-center h-full mx-auto">
         <h1 class="pr-4">
