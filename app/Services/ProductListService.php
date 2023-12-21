@@ -61,7 +61,8 @@ class ProductListService
     {
         $product = Product::with('productPhotos')
             ->select('id', 'type', 'name', 'status', 'start_time', 'end_time', 'price', 'cover_photo_index', 'description', 'created_at')
-            ->active()
+            ->where('status', 1)
+            ->where('start_time', '<=', now())
             ->find($params->id);
 
         if (!$product) {
@@ -159,5 +160,36 @@ class ProductListService
         }
 
         return ['message' => rtFormat($productId)];
+    }
+
+    /**
+     * 找出已結束競標且有會員競標的商品，並更新競標結果。
+     * @return array
+     */
+    public function winningBid()
+    {
+        // 找出所有已經結束競標，且有會員競標的商品
+        $productData = Product::with('userClientProducts')
+            ->select('id', 'status', 'start_time', 'end_time')
+            ->where('status', 1)
+            ->where('end_time', '<=', now())
+            ->whereHas('userClients', function ($query) {
+                $query->where('status', 1);
+            })
+            ->get();
+
+        // 找出每個商品的最高競標價格，最高競標那筆資料的中間表的status改為2，其餘改為3
+        foreach ($productData as $product) {
+            $userClientProduct = $product->userClientProducts;
+            foreach ($userClientProduct as $item) {
+                if ($item->bid_price === $product->scopeHeightestPrice()) {
+                    $item->update(['status' => 2]);
+                } else {
+                    $item->update(['status' => 3]);
+                }
+            }
+        }
+
+        return ['message' => rtFormat('')];
     }
 }

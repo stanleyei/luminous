@@ -25,7 +25,7 @@ const countDown = () => {
   const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((time % (1000 * 60)) / 1000);
 
-  const timeString = days === 0 && hours === 0 && minutes === 0 && seconds === 0
+  const timeString = days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0
     ? '已結標'
     : `${padZero(hours)} : ${padZero(minutes)} : ${padZero(seconds)}`;
 
@@ -111,7 +111,7 @@ setInterval(() => {
 
     <!-- 倒數計時 -->
     <section class="flex items-center justify-center py-2 bg-main-swamp-green/80 md:text-7xl text-5xl text-white font-clockicons">
-      <div v-if="countDownDays" class="flex items-end pr-2">
+      <div v-if="countDownDays >= 0" class="flex items-end pr-2">
         <p>{{ countDownDays }}</p>
         <small class="text-base font-bold">天</small>
       </div>
@@ -122,7 +122,7 @@ setInterval(() => {
     <section class="flex flex-col gap-4 py-4 px-3 border-x-4 border-b-4 border-main-swamp-green/80 md:text-lg text-main-swamp-green">
       <p>{{ productData.name }}</p>
       <div class="flex items-center gap-2">
-        目前競標價格：
+        {{ countDownTime === '已結標' ? '最終得標價格' : '目前競標價格' }}：
         <b class="text-main-light-red">
           NT$ {{ productData.price.toLocaleString() }}
         </b>

@@ -37,7 +37,7 @@ class ProductListController extends Controller
         $rtData = $this->productListService->getProductDetailData($params);
 
         if (!$rtData) {
-            return redirect(route('product.detail'));
+            return redirect(route('product.index'));
         }
 
         return Inertia::render('Frontend/ProductDetail', $rtData);

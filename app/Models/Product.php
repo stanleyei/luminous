@@ -68,6 +68,11 @@ class Product extends Model
                     ->withTimestamps();
     }
 
+    public function userClientProducts()
+    {
+        return $this->hasMany(UserClientProduct::class);
+    }
+
     // 獲取前台商品列表資料
     public function scopeActive($query)
     {
