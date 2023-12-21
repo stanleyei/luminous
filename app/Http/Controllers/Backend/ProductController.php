@@ -15,7 +15,7 @@ class ProductController extends Controller
     public function __construct(protected ProductService $productService)
     {
         $this->validateRule = [
-            'type' => 'required|integer|between:1,3',
+            'type' => 'required|integer|between:1,5',
             'name' => 'required|string|max:255',
             'start_time' => 'required|date',
             'end_time' => 'required|date|after:start_time',
