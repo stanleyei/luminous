@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $end_time
  * @property int $price
  * @property bool $featured
+ * @property bool $is_paid
  * @property string $description
  * @property int $cover_photo_index
  * @property Carbon|null $created_at
@@ -41,6 +42,7 @@ class Product extends Model
         'status' => 'int',
         'price' => 'int',
         'featured' => 'int',
+        'is_paid' => 'int',
         'cover_photo_index' => 'int'
     ];
 
@@ -52,6 +54,7 @@ class Product extends Model
         'end_time',
         'price',
         'featured',
+        'is_paid',
         'description',
         'cover_photo_index',
     ];
