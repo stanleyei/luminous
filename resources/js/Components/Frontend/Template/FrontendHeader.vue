@@ -8,13 +8,20 @@ import iconUser from '/images/icon/icon-user.svg';
 import iconSearch from '/images/icon/icon-search.svg';
 
 const user = computed(() => usePage().props.auth.user);
-const showNavigationDropdown = ref(false);
+const winBidProducts = computed(() => usePage().props.clientWinBidProductList ?? []);
+const showNavigationDropdown = ref('');
 const showSearchBar = ref(false);
 const keywords = ref('');
 
+const switchMenu = (menu) => {
+  showNavigationDropdown.value = showNavigationDropdown.value === menu
+    ? ''
+    : menu;
+};
+
 // 監聽組件變化，關閉選單
 watch(() => usePage().component, () => {
-  showNavigationDropdown.value = false;
+  showNavigationDropdown.value = '';
 });
 
 // 搜尋關鍵字
@@ -51,26 +58,35 @@ const closeSearchBar = () => {
             <Link :href="route('client.index')" title="(跳轉頁面)前往會員中心">
               <img :src="iconUser" alt="使用者圖示" width="22" height="22" class="w-[22px]">
             </Link>
-            <button type="button">
+            <button type="button" @click="switchMenu('shoppingCart')">
               <img :src="iconShoppingCart" alt="購物車圖示" width="22" height="22" class="w-[22px]">
             </button>
           </div>
 
           <!-- 行動版選單按鈕 -->
-          <button type="button" class="w-[60px] h-full bg-gray-200/50" @click="showNavigationDropdown = !showNavigationDropdown">
+          <button type="button" class="w-[60px] h-full bg-gray-200/50" @click="switchMenu('nav')">
             <svg class="h-6 w-6 mx-auto" stroke="currentColor" fill="none" viewBox="0 0 24 24">
               <title>導覽列選單</title>
-              <path :class="{ hidden: showNavigationDropdown, 'inline-flex': !showNavigationDropdown }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-              <path :class="{ hidden: !showNavigationDropdown, 'inline-flex': showNavigationDropdown }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              <path :class="{ hidden: showNavigationDropdown === 'nav', 'inline-flex': showNavigationDropdown !== 'nav' }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              <path :class="{ hidden: showNavigationDropdown !== 'nav', 'inline-flex': showNavigationDropdown === 'nav' }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
 
+          <!-- 購物車已得標產品視窗 -->
           <Transition name="fade" mode="out-in">
-            <nav v-show="showNavigationDropdown" class="absolute top-[70px] right-0 flex flex-col items-center gap-y-3 gap-x-5 p-3 rounded-lg bg-white shadow-lg">
+            <nav v-show="showNavigationDropdown === 'shoppingCart'" class="absolute top-[70px] right-0 flex flex-col items-center gap-y-3 gap-x-5 p-3 rounded-lg bg-white shadow-lg">
+              <div v-if="winBidProducts.length">1</div>
+              <div v-else>無得標商品</div>
+            </nav>
+          </Transition>
+
+          <!-- 導覽列選單 -->
+          <Transition name="fade" mode="out-in">
+            <nav v-show="showNavigationDropdown === 'nav'" class="absolute top-[70px] right-0 flex flex-col items-center gap-y-3 gap-x-5 p-3 rounded-lg bg-white shadow-lg">
               <Link v-if="!user" :href="route('login')" title="前往登入(跳轉頁面)" class="nav-link">
                 登入
               </Link>
-              <Link :href="route('product.index')" title="前往所有商品(跳轉頁面)" class="nav-link" @click="showNavigationDropdown = !showNavigationDropdown">
+              <Link :href="route('product.index')" title="前往所有商品(跳轉頁面)" class="nav-link" @click="showNavigationDropdown = ''">
                 所有商品
               </Link>
               <a href="/" title="前往Instagram(另開新頁)" class="nav-link">Instagram</a>

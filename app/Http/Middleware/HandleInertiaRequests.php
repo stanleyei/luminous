@@ -44,6 +44,41 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'message' => fn () => $request->session()->get('message'),
             ],
+            'clientWinBidProductList' => $this->getWinBidProductListData($request),
         ];
+    }
+
+    /**
+     * 取得中標商品清單資料
+     * @param  \Illuminate\Http\Request  $request  HTTP 請求物件
+     * @return array 中標商品清單資料
+     */
+    protected function getWinBidProductListData($request)
+    {
+        $user = $request->user();
+        if (!$user || !$user?->userClient) return [];
+
+        $clientProducts = $user->userClient->products ?? [];
+
+        // 找出中標商品
+        $clientProducts = $clientProducts->where('pivot.status', 2)->get();
+
+        $data = $clientProducts->map(function ($item) {
+            // 封面照片
+            $coverPhoto = $item->coverPhoto();
+
+            return [
+                // 商品 id
+                'id' => $item->id,
+                // 商品名稱
+                'name' => $item->name,
+                // 商品價格
+                'price' => $item->price,
+                // 商品封面照片路徑
+                'cover_photo_path' => $coverPhoto->photo_path ?? '',
+            ];
+        });
+
+        return $data;
     }
 }
