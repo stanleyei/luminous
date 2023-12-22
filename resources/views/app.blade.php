@@ -5,6 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
         <meta name="description" content="各式飾品拍賣">
         <meta name="author" content="Luminous">
+        @if (!env('GOOGLE_REBOT_ENABLED', false))
+          <meta name="robots" content="noindex, nofollow">
+          <meta name="googlebot" content="noindex">
+        @endif
         <title inertia>{{ config('app.name', 'Luminous') }}</title>
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
