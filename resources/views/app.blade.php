@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
         <meta name="description" content="各式飾品拍賣">
         <meta name="author" content="Luminous">
-        @if (!env('GOOGLE_REBOT_ENABLED', false))
+        @if (env('GOOGLE_REBOT_BAN', false))
           <meta name="robots" content="noindex, nofollow">
           <meta name="googlebot" content="noindex">
         @endif
