@@ -26,7 +26,7 @@ const changeType = (type) => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-y-4 justify-between md:min-h-[calc(100dvh-201px)] min-h-[calc(100dvh-177px)] py-7 px-4">
+  <div class="flex flex-col gap-y-4 justify-between md:min-h-[calc(100dvh-229px)] min-h-[calc(100dvh-201px)] py-7 px-4">
     <div>
       <section class="flex justify-between items-center">
         <h2 class="font-bold text-xl">商品列表</h2>

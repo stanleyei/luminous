@@ -19,7 +19,7 @@ const productData = computed(() => {
 </script>
 
 <template>
-  <div class="relative flex flex-col gap-y-4 md:min-h-[calc(100dvh-201px)] min-h-[calc(100dvh-177px)] py-7 px-4 text-main-swamp-green">
+  <div class="relative flex flex-col gap-y-4 md:min-h-[calc(100dvh-229px)] min-h-[calc(100dvh-201px)] py-7 px-4 text-main-swamp-green">
     <section class="py-4 border-b-2 border-dashed border-main-swamp-green/80">
       <h2 class="font-bold text-lg pb-3">會員資訊</h2>
       <article class="flex flex-col gap-2">

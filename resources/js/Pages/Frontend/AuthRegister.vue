@@ -16,7 +16,7 @@ const submit = () => {
 </script>
 
 <template>
-  <div class="flex justify-center items-center md:min-h-[calc(100dvh-201px)] min-h-[calc(100dvh-177px)] px-4">
+  <div class="flex justify-center items-center md:min-h-[calc(100dvh-229px)] min-h-[calc(100dvh-201px)] px-4">
     <section class="w-96 border-4 border-main-swamp-green/80 text-main-swamp-green">
       <RegisterLoginNav />
       <form class="py-8 px-4" @submit.prevent="submit">

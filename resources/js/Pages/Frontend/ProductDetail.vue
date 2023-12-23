@@ -80,7 +80,7 @@ setInterval(() => {
 </script>
 
 <template>
-  <div class="md:min-h-[calc(100dvh-201px)] min-h-[calc(100dvh-177px)] pt-4 pb-7 px-4">
+  <div class="md:min-h-[calc(100dvh-229px)] min-h-[calc(100dvh-201px)] pt-4 pb-7 px-4">
     <!-- 商品照片 -->
     <section class="flex flex-col gap-y-2 pb-6">
       <figure class="flex items-center md:h-[650px] h-[300px] bg-gray-100">
