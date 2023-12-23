@@ -83,18 +83,18 @@ setInterval(() => {
   <div class="md:min-h-[calc(100dvh-201px)] min-h-[calc(100dvh-177px)] pt-4 pb-7 px-4">
     <!-- 商品照片 -->
     <section class="flex flex-col gap-y-2 pb-6">
-      <figure class="flex items-center md:h-[500px] h-[250px] bg-gray-100">
-        <img :src="selectedPhoto.photo_path" :alt="selectedPhoto.photo_alt">
+      <figure class="flex items-center md:h-[650px] h-[300px] bg-gray-100">
+        <img :src="selectedPhoto.photo_path" :alt="selectedPhoto.photo_alt" class="h-full mx-auto">
       </figure>
       <aside class="custom-scroll flex gap-2 pb-2 overflow-x-auto">
         <button
           v-for="(photo, index) in productData?.photos ?? []"
           :key="photo.id"
           type="button"
-          :class="twMerge('min-w-[72px] w-[72px] min-h-[72px] h-[72px] border-2 border-black/30 hover:border-black/50 transition-colors', selectedPhotoIndex === index && 'border-black')"
+          :class="twMerge('min-w-[72px] w-[72px] min-h-[72px] h-[72px] bg-gray-100 border-2 border-black/30 hover:border-black/50 transition-colors', selectedPhotoIndex === index && 'border-black')"
           @click="selectedPhotoIndex = index"
         >
-          <img :src="photo.photo_path" :alt="photo.photo_alt" class="w-full">
+          <img :src="photo.photo_path" :alt="photo.photo_alt" class="h-full mx-auto">
         </button>
       </aside>
     </section>
