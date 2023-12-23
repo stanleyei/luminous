@@ -61,7 +61,7 @@ class HandleInertiaRequests extends Middleware
         $clientProducts = $user->userClient->products ?? [];
 
         // 找出中標商品
-        $clientProducts = $clientProducts->where('pivot.status', 2)->get();
+        $clientProducts = $clientProducts->where('is_paid', 0)->where('pivot.status', 2);
 
         $data = $clientProducts->map(function ($item) {
             // 封面照片
@@ -72,8 +72,8 @@ class HandleInertiaRequests extends Middleware
                 'id' => $item->id,
                 // 商品名稱
                 'name' => $item->name,
-                // 商品價格
-                'price' => $item->price,
+                // 得標價格
+                'bid_price' => $item->pivot->bid_price ?? 0,
                 // 商品封面照片路徑
                 'cover_photo_path' => $coverPhoto->photo_path ?? '',
             ];

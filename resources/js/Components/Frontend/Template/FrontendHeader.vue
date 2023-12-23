@@ -37,6 +37,17 @@ const closeSearchBar = () => {
   showSearchBar.value = false;
   keywords.value = '';
 };
+
+/**
+ * 顯示購物車
+ */
+const showShoppingCart = () => {
+  if (!user.value || user.value?.role === 1) {
+    router.get(route('login'));
+    return;
+  }
+  switchMenu('shoppingCart');
+};
 </script>
 
 <template>
@@ -58,8 +69,11 @@ const closeSearchBar = () => {
             <Link :href="route('client.index')" title="(跳轉頁面)前往會員中心">
               <img :src="iconUser" alt="使用者圖示" width="22" height="22" class="w-[22px]">
             </Link>
-            <button type="button" @click="switchMenu('shoppingCart')">
+            <button type="button" class="relative" @click="showShoppingCart">
               <img :src="iconShoppingCart" alt="購物車圖示" width="22" height="22" class="w-[22px]">
+              <div v-show="winBidProducts.length" class="absolute -top-[8px] -right-[12px] flex justify-center items-center w-[18px] h-[18px] bg-red-500 rounded-full text-white text-sm font-bold">
+                {{ winBidProducts.length }}
+              </div>
             </button>
           </div>
 
@@ -74,8 +88,23 @@ const closeSearchBar = () => {
 
           <!-- 購物車已得標產品視窗 -->
           <Transition name="fade" mode="out-in">
-            <nav v-show="showNavigationDropdown === 'shoppingCart'" class="absolute top-[70px] right-0 flex flex-col items-center gap-y-3 gap-x-5 p-3 rounded-lg bg-white shadow-lg">
-              <div v-if="winBidProducts.length">1</div>
+            <nav v-show="showNavigationDropdown === 'shoppingCart'" class="absolute top-[70px] right-0 flex p-3 rounded-lg bg-white shadow-lg">
+              <div v-if="winBidProducts.length" class="flex-col items-center gap-y-3 gap-x-5">
+                <Link
+                  v-for="bidProducts in winBidProducts"
+                  :key="bidProducts.id"
+                  :href="route('product.detail', { id: bidProducts.id })"
+                  title="前往付款(跳轉頁面)"
+                  class="flex items-center gap-2 w-[300px] p-1 rounded bg-gray-100 text-center break-keep hover:bg-gray-200 transition-colors"
+                >
+                  <img :src="bidProducts.cover_photo_path" alt="商品圖片" width="72" class="h-[72px] object-cover rounded-md">
+                  <div class="text-sm">
+                    <p class="text-start text-red-400 font-bold">已得標</p>
+                    <p class="max-h-[40px] h-[40px] break-all">{{ bidProducts.name }}</p>
+                    <p class="text-end text-red-400 font-bold">NT$ {{ bidProducts.bid_price.toLocaleString() }}</p>
+                  </div>
+                </Link>
+              </div>
               <div v-else>無得標商品</div>
             </nav>
           </Transition>

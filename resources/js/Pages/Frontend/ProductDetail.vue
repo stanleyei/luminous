@@ -100,10 +100,13 @@ setInterval(() => {
     </section>
 
     <!-- 競標按鈕 -->
-    <section v-if="countDownTime !== '已結標'" class="pb-4">
-      <button type="button" class="w-full py-2 px-8 rounded-lg bg-[#CCCAB1]/70 text-lg font-bold text-main-swamp-green/80 transition-colors hover:bg-[#CCCAB1]" @click="openBidModal">
+    <section class="pb-4">
+      <button v-if="countDownTime !== '已結標'" type="button" class="w-full py-2 px-8 rounded-lg bg-[#CCCAB1]/70 text-lg font-bold text-main-swamp-green/80 transition-colors hover:bg-[#CCCAB1]" @click="openBidModal">
         我要競標
       </button>
+      <Link v-else :href="route('shoppingCart.index')" class="inline-block w-full py-2 px-8 rounded-lg bg-[#CCCAB1]/70 text-lg font-bold text-main-swamp-green/80 text-center transition-colors hover:bg-[#CCCAB1]">
+        前往付款
+      </Link>
     </section>
     <Teleport to="body">
       <BidModal :show="showBidModal" :product-data="productData" @close="showBidModal = false" />
