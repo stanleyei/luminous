@@ -37,7 +37,7 @@ watch(
 
 onMounted(() => {
   const app = new Application(canvas3d.value);
-  app.load('https://prod.spline.design/nH9q2H5jXJW-xrDk/scene.splinecode');
+  app.load('https://prod.spline.design/RHP7eGnr1mEZkXbA/scene.splinecode');
 });
 </script>
 
