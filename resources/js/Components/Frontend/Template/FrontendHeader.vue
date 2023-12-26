@@ -6,12 +6,14 @@ import logoLuminous from '/images/logo/logo-luminous.png';
 import iconShoppingCart from '/images/icon/icon-shopping-cart.svg';
 import iconUser from '/images/icon/icon-user.svg';
 import iconSearch from '/images/icon/icon-search.svg';
+import { onClickOutside } from '@vueuse/core';
 
 const user = computed(() => usePage().props.auth.user);
 const winBidProducts = computed(() => usePage().props.clientWinBidProductList ?? []);
 const showNavigationDropdown = ref('');
 const showSearchBar = ref(false);
 const keywords = ref('');
+const headerDom = ref(null);
 
 const switchMenu = (menu) => {
   showNavigationDropdown.value = showNavigationDropdown.value === menu
@@ -32,12 +34,6 @@ const searchKeywords = () => {
   });
 };
 
-// 關閉搜尋欄
-const closeSearchBar = () => {
-  showSearchBar.value = false;
-  keywords.value = '';
-};
-
 /**
  * 顯示購物車
  */
@@ -48,10 +44,15 @@ const showShoppingCart = () => {
   }
   switchMenu('shoppingCart');
 };
+
+onClickOutside(headerDom, () => {
+  showNavigationDropdown.value = '';
+  showSearchBar.value = false;
+});
 </script>
 
 <template>
-  <header class="fixed z-[2] top-0 max-w-3xl w-full h-[65px] px-3 bg-main-yellow shadow-md">
+  <header ref="headerDom" class="fixed z-[2] top-0 max-w-3xl w-full h-[65px] px-3 bg-main-yellow shadow-md">
     <Transition name="fade" mode="out-in">
       <div v-if="!showSearchBar" class="relative flex items-center h-full mx-auto">
         <h1 class="pr-4">
@@ -133,12 +134,6 @@ const showShoppingCart = () => {
         <label class="flex-1">
           <input v-model="keywords" type="search" placeholder="搜尋商品" class="w-full py-1 border border-gray-300 rounded-md px-3" @keydown.enter="searchKeywords" @search="searchKeywords">
         </label>
-        <button type="button" @click="closeSearchBar">
-          <svg class="h-6 w-6 mx-auto" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-            <title>關閉搜尋欄</title>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
       </div>
     </Transition>
   </header>

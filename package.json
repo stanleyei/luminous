@@ -45,6 +45,7 @@
         "@tailwindcss/container-queries": "^0.1.1",
         "@tinymce/tinymce-vue": "^5.1.1",
         "@vuepic/vue-datepicker": "^7.3.0",
+        "@vueuse/core": "^10.7.0",
         "pinia": "^2.1.7",
         "swiper": "^11.0.5",
         "tailwind-merge": "^2.0.0",
