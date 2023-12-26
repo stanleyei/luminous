@@ -4,7 +4,6 @@
 import { usePage } from '@inertiajs/vue3';
 import iconAngleLeft from '/images/icon/icon-angle-left.svg';
 import iconAngleRight from '/images/icon/icon-angle-right.svg';
-import { Application } from '@splinetool/runtime';
 
 const props = defineProps({
   response: Object,
@@ -19,8 +18,6 @@ const flashMessage = computed(() => usePage().props?.flash?.message);
 const btnPrevBanner = ref(null);
 const btnNextBanner = ref(null);
 
-const canvas3d = ref(null);
-
 // 設定確認彈跳視窗參數
 const { useAlert } = useAlertStore();
 watch(
@@ -34,11 +31,6 @@ watch(
   },
   { immediate: true },
 );
-
-onMounted(() => {
-  const app = new Application(canvas3d.value);
-  app.load('https://prod.spline.design/RHP7eGnr1mEZkXbA/scene.splinecode');
-});
 </script>
 
 <template>
@@ -89,7 +81,7 @@ onMounted(() => {
       </div>
     </section>
 
-    <canvas ref="canvas3d"></canvas>
+    <Character />
   </div>
 </template>
 
