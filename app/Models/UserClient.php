@@ -46,7 +46,7 @@ class UserClient extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class, 'user_client_product')
-                    ->withPivot('id', 'status', 'bid_price')
+                    ->withPivot('id', 'bid_price')
                     ->withTimestamps();
     }
 }

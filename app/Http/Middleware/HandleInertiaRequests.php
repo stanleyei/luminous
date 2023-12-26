@@ -2,9 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
+use Illuminate\Http\Request;
+use App\Services\UserClientService;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -14,6 +15,10 @@ class HandleInertiaRequests extends Middleware
      * @var string
      */
     protected $rootView = 'app';
+
+    public function __construct(protected UserClientService $userClientService)
+    {
+    }
 
     /**
      * Determine the current asset version.
@@ -44,41 +49,7 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'message' => fn () => $request->session()->get('message'),
             ],
-            'clientWinBidProductList' => $this->getWinBidProductListData($request),
+            'successfulBidProducts' => $this->userClientService->getSuccessfulBidProducts($request->user()),
         ];
-    }
-
-    /**
-     * 取得中標商品清單資料
-     * @param  \Illuminate\Http\Request  $request  HTTP 請求物件
-     * @return array 中標商品清單資料
-     */
-    protected function getWinBidProductListData($request)
-    {
-        $user = $request->user();
-        if (!$user || !$user?->userClient) return [];
-
-        $clientProducts = $user->userClient->products ?? [];
-
-        // 找出中標商品
-        $clientProducts = $clientProducts->where('is_paid', 0)->where('pivot.status', 2);
-
-        $data = $clientProducts->map(function ($item) {
-            // 封面照片
-            $coverPhoto = $item->coverPhoto();
-
-            return [
-                // 商品 id
-                'id' => $item->id,
-                // 商品名稱
-                'name' => $item->name,
-                // 得標價格
-                'bid_price' => $item->pivot->bid_price ?? 0,
-                // 商品封面照片路徑
-                'cover_photo_path' => $coverPhoto->photo_path ?? '',
-            ];
-        });
-
-        return $data;
     }
 }

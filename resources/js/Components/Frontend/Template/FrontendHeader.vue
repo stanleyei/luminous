@@ -9,7 +9,7 @@ import iconUser from '/images/icon/icon-user.svg';
 import iconSearch from '/images/icon/icon-search.svg';
 
 const user = computed(() => usePage().props.auth.user);
-const winBidProducts = computed(() => usePage().props.clientWinBidProductList ?? []);
+const successfulBidProducts = computed(() => usePage().props.successfulBidProducts ?? []);
 const showNavigationDropdown = ref('');
 const showSearchBar = ref(false);
 const keywords = ref('');
@@ -72,8 +72,8 @@ onClickOutside(headerDom, () => {
             </Link>
             <button type="button" class="relative" @click="showShoppingCart">
               <img :src="iconShoppingCart" alt="購物車圖示" width="22" height="22" class="w-[22px]">
-              <div v-show="winBidProducts.length" class="absolute -top-[8px] -right-[12px] flex justify-center items-center w-[18px] h-[18px] bg-red-500 rounded-full text-white text-sm font-bold">
-                {{ winBidProducts.length }}
+              <div v-show="successfulBidProducts.length" class="absolute -top-[8px] -right-[12px] flex justify-center items-center w-[18px] h-[18px] bg-red-500 rounded-full text-white text-sm font-bold">
+                {{ successfulBidProducts.length }}
               </div>
             </button>
           </div>
@@ -91,9 +91,9 @@ onClickOutside(headerDom, () => {
           <Transition name="fade" mode="out-in">
             <nav v-show="showNavigationDropdown === 'shoppingCart'" class="absolute top-[70px] right-0 p-3 rounded-lg bg-white shadow-lg">
               <div class="triangle-decoration"></div>
-              <div v-if="winBidProducts.length" class="flex flex-col items-center gap-y-3">
+              <div v-if="successfulBidProducts.length" class="flex flex-col items-center gap-y-3">
                 <Link
-                  v-for="bidProducts in winBidProducts"
+                  v-for="bidProducts in successfulBidProducts"
                   :key="bidProducts.id"
                   :href="route('product.detail', { id: bidProducts.id })"
                   title="前往付款(跳轉頁面)"
@@ -110,8 +110,8 @@ onClickOutside(headerDom, () => {
               <div v-else>尚無得標商品</div>
 
               <!-- 結帳/競標按鈕 -->
-              <Link :href="route(winBidProducts.length ? 'shoppingCart.index' : 'product.index')" class="block w-full mt-3 py-1 px-3 rounded-lg bg-main-swamp-green/80 text-white text-center hover:bg-main-swamp-green/90 transition-colors">
-                {{ winBidProducts.length ? '前往結帳' : '前往競標' }}
+              <Link :href="route(successfulBidProducts.length ? 'shoppingCart.index' : 'product.index')" class="block w-full mt-3 py-1 px-3 rounded-lg bg-main-swamp-green/80 text-white text-center hover:bg-main-swamp-green/90 transition-colors">
+                {{ successfulBidProducts.length ? '前往結帳' : '前往競標' }}
               </Link>
             </nav>
           </Transition>

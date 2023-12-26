@@ -45,7 +45,9 @@ const changeType = (type) => {
 
       <!-- 商品列表 -->
       <section :class="twMerge('grid md:grid-cols-3 grid-cols-2 gap-4 mx-auto py-5', !paginationData?.data?.length && 'grid-cols-1')">
-        <ProductCard v-for="product in paginationData?.data ?? []" :key="product.id" :product="product" />
+        <ProductCard v-for="product in paginationData?.data ?? []" :key="product.id" :product="product">
+          <b>起標價：NT$ {{ product.price.toLocaleString() }}</b>
+        </ProductCard>
         <p v-show="!paginationData?.data?.length" class="md:text-3xl text-xl">查無商品資料</p>
       </section>
     </div>

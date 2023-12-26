@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property int $user_client_id
  * @property int $product_id
- * @property int $status
  * @property int $bid_price
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -33,14 +32,12 @@ class UserClientProduct extends Model
     protected $casts = [
         'user_client_id' => 'int',
         'product_id' => 'int',
-        'status' => 'int',
         'bid_price' => 'int'
     ];
 
     protected $fillable = [
         'user_client_id',
         'product_id',
-        'status',
         'bid_price',
     ];
 

@@ -78,7 +78,9 @@ onMounted(() => {
     <section class="pt-10 px-4 text-main-swamp-green">
       <h2 class="flex justify-center mb-5 font-bold">-推薦-</h2>
       <div class="grid @3xl:grid-cols-3 grid-cols-2 gap-4 mx-auto">
-        <ProductCard v-for="product in productData" :key="product.id" :product="product" />
+        <ProductCard v-for="product in productData" :key="product.id" :product="product">
+          <b>起標價：NT$ {{ product.price.toLocaleString() }}</b>
+        </ProductCard>
       </div>
       <div class="flex justify-end">
         <Link :href="route('product.index')" title="前往商品列表頁(跳轉頁面)" class="pt-2 pb-1 px-1 border-b border-[#CCCAB1] text-sm hover:border-b-2">

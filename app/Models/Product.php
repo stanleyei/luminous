@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $end_time
  * @property int $price
  * @property bool $featured
+ * @property int $successful_bidder_id
  * @property bool $is_paid
  * @property string $description
  * @property int $cover_photo_index
@@ -54,6 +55,7 @@ class Product extends Model
         'end_time',
         'price',
         'featured',
+        'successful_bidder_id',
         'is_paid',
         'description',
         'cover_photo_index',
@@ -67,7 +69,7 @@ class Product extends Model
     public function userClients()
     {
         return $this->belongsToMany(UserClient::class, 'user_client_product')
-                    ->withPivot('id', 'status', 'bid_price')
+                    ->withPivot('id', 'bid_price')
                     ->withTimestamps();
     }
 

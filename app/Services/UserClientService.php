@@ -65,22 +65,25 @@ class UserClientService
             })
             ->first();
 
+        // 正在競標的商品
+        $biddingProducts = $userClient->products->where('successful_bidder_id', '!=', $userClient->id);
+
         $user = $userClient->user;
 
         $data = [
             'userClientData' => [
                 'id' => $user->id,
                 'email' => $user->email,
-                'products' => $userClient->products->map(function ($item) {
+                'biddingProducts' => $biddingProducts->map(function ($item) {
                     return [
                         'id' => $item->id,
                         'type' => $this->productPresenter->getProductType($item->type)?->name ?? '',
                         'name' => $item->name,
                         'cover_photo_path' => $item->coverPhoto()->photo_path ?? '',
-                        'pivot_status' => $item->pivot->status,
                         'bid_price' => $item->pivot->bid_price,
                     ];
                 }),
+                'successfulBidProducts' => $this->getSuccessfulBidProducts($user),
             ],
         ];
 
@@ -101,5 +104,45 @@ class UserClientService
         ]);
 
         return ['message' => rtFormat($id)];
+    }
+
+    /**
+     * 取得中標商品清單資料
+     * @param  \App\Models\User $user 使用者資料
+     * @return array 中標商品清單資料
+     */
+    public function getSuccessfulBidProducts($user)
+    {
+        $userClient = $user?->userClient ?? null;
+        if (!$user || !$userClient) return [];
+
+        $clientProducts = $userClient->products ?? [];
+
+        // 找出中標商品
+        $clientProducts = $clientProducts
+            ->where('is_paid', 0)
+            ->where('successful_bidder_id', $userClient->id);
+
+        $data = $clientProducts->map(function ($item) {
+            // 封面照片
+            $coverPhoto = $item->coverPhoto();
+
+            return [
+                // 商品 id
+                'id' => $item->id,
+                // 商品類型
+                'type' => $this->productPresenter->getProductType($item->type)?->name ?? '',
+                // 商品名稱
+                'name' => $item->name,
+                // 決標時間
+                'end_time' => date('Y-m-d H:i', strtotime($item->end_time)),
+                // 出標價格
+                'bid_price' => $item->pivot->bid_price ?? 0,
+                // 商品封面照片路徑
+                'cover_photo_path' => $coverPhoto->photo_path ?? '',
+            ];
+        });
+
+        return $data;
     }
 }

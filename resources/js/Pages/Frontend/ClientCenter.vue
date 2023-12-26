@@ -10,11 +10,11 @@ const props = defineProps({
 });
 
 const rtData = computed(() => props.response?.rt_data ?? {});
-const selectedStatus = ref(1);
+const selectedStatus = ref('bidding');
 const userClientData = computed(() => rtData.value.userClientData ?? {});
 const productData = computed(() => {
-  const data = rtData.value.clientProducts ?? [];
-  return data.filter(item => item.pivot_status === selectedStatus.value);
+  const { biddingProducts = [], successfulBidProducts = [] } = rtData.value;
+  return selectedStatus.value === 'bidding' ? biddingProducts : successfulBidProducts;
 });
 </script>
 
@@ -36,18 +36,21 @@ const productData = computed(() => {
 
     <section class="flex justify-between items-center">
       <h2 class="font-bold text-lg">
-        {{ selectedStatus === 1 ? '競標中商品' : '已得標商品' }}
+        {{ selectedStatus === 'bidding' ? '競標中商品' : '已得標商品' }}
         <span>(共{{ productData.length }}件)</span>
       </h2>
       <select v-model="selectedStatus" class="rounded-xl cursor-pointer">
-        <option :value="1">競標中</option>
-        <option :value="2">已得標</option>
+        <option value="bidding">競標中</option>
+        <option value="successful">已得標</option>
       </select>
     </section>
 
     <!-- 商品列表 -->
     <section :class="twMerge('grid md:grid-cols-3 grid-cols-2 gap-4 mx-auto py-5', !productData?.length && 'grid-cols-1')">
-      <ProductCard v-for="product in productData ?? []" :key="product.id" :product="product" />
+      <ProductCard v-for="product in productData ?? []" :key="product.id" :product="product">
+        <b v-if="selectedStatus === 'bidding'">目前價格：NT$ {{ product.highest_bid_price.toLocaleString() }}</b>
+        <b>我的出價：NT$ {{ product.bid_price.toLocaleString() }}</b>
+      </ProductCard>
       <p v-show="!productData?.length" class="absolute top-1/2 left-1/2 -translate-x-1/2 md:text-3xl text-xl">查無商品資料</p>
     </section>
   </div>

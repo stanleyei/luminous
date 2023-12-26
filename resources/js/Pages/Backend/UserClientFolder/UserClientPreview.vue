@@ -9,10 +9,10 @@ const props = defineProps({
 
 const rtData = computed(() => props.response?.rt_data ?? {});
 const userClientData = computed(() => rtData.value.userClientData ?? {});
-const selectedTab = ref(1);
+const selectedTab = ref('bidding');
 const productData = computed(() => {
-  const data = userClientData.value.products ?? [];
-  return data.filter(item => item.pivot_status === selectedTab.value);
+  const { biddingProducts = [], successfulBidProducts = [] } = userClientData.value;
+  return selectedTab.value === 'bidding' ? biddingProducts : successfulBidProducts;
 });
 
 // 設置麵包屑
@@ -33,15 +33,15 @@ setBreadcrumb([
         <nav class="flex">
           <button
             type="button"
-            :class="twMerge('tab-btn', selectedTab === 1 && 'selected-tab')"
-            @click="selectedTab = 1"
+            :class="twMerge('tab-btn', selectedTab === 'bidding' && 'selected-tab')"
+            @click="selectedTab = 'bidding'"
           >
             競標中
           </button>
           <button
             type="button"
-            :class="twMerge('tab-btn', selectedTab === 2 && 'selected-tab')"
-            @click="selectedTab = 2"
+            :class="twMerge('tab-btn', selectedTab === 'successful' && 'selected-tab')"
+            @click="selectedTab = 'successful'"
           >
             已得標
           </button>
