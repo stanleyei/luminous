@@ -105,7 +105,7 @@ setInterval(() => {
         我要競標
       </button>
       <Link v-else :href="route('shoppingCart.index')" class="inline-block w-full py-2 px-8 rounded-lg bg-[#CCCAB1]/70 text-lg font-bold text-main-swamp-green/80 text-center transition-colors hover:bg-[#CCCAB1]">
-        前往付款
+        前往結帳
       </Link>
     </section>
     <Teleport to="body">

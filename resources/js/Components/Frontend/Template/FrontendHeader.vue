@@ -89,8 +89,9 @@ onClickOutside(headerDom, () => {
 
           <!-- 購物車已得標產品視窗 -->
           <Transition name="fade" mode="out-in">
-            <nav v-show="showNavigationDropdown === 'shoppingCart'" class="absolute top-[70px] right-0 flex p-3 rounded-lg bg-white shadow-lg">
-              <div v-if="winBidProducts.length" class="flex-col items-center gap-y-3 gap-x-5">
+            <nav v-show="showNavigationDropdown === 'shoppingCart'" class="absolute top-[70px] right-0 p-3 rounded-lg bg-white shadow-lg">
+              <div class="triangle-decoration"></div>
+              <div v-if="winBidProducts.length" class="flex flex-col items-center gap-y-3">
                 <Link
                   v-for="bidProducts in winBidProducts"
                   :key="bidProducts.id"
@@ -99,14 +100,19 @@ onClickOutside(headerDom, () => {
                   class="flex items-center gap-2 w-[300px] p-1 rounded bg-gray-100 text-center break-keep hover:bg-gray-200 transition-colors"
                 >
                   <img :src="bidProducts.cover_photo_path" alt="商品圖片" width="72" class="h-[72px] object-cover rounded-md">
-                  <div class="text-sm">
+                  <div class="flex-1 text-sm">
                     <p class="text-start text-red-400 font-bold">已得標</p>
-                    <p class="max-h-[40px] h-[40px] break-all">{{ bidProducts.name }}</p>
+                    <p class="flex items-center justify-center max-h-[40px] h-[40px] break-all">{{ bidProducts.name }}</p>
                     <p class="text-end text-red-400 font-bold">NT$ {{ bidProducts.bid_price.toLocaleString() }}</p>
                   </div>
                 </Link>
               </div>
-              <div v-else>無得標商品</div>
+              <div v-else>尚無得標商品</div>
+
+              <!-- 結帳/競標按鈕 -->
+              <Link :href="route(winBidProducts.length ? 'shoppingCart.index' : 'product.index')" class="block w-full mt-3 py-1 px-3 rounded-lg bg-main-swamp-green/80 text-white text-center hover:bg-main-swamp-green/90 transition-colors">
+                {{ winBidProducts.length ? '前往結帳' : '前往競標' }}
+              </Link>
             </nav>
           </Transition>
 
@@ -142,6 +148,10 @@ onClickOutside(headerDom, () => {
 <style scoped>
 .nav-link {
   @apply inline-block w-full py-1 px-3 rounded text-center break-keep hover:bg-gray-200/50 transition-colors;
+}
+
+.triangle-decoration {
+  @apply absolute -top-[14px] right-[78px] w-0 h-0 border-x-[14px] border-t-0 border-b-[14px] border-[transparent_transparent_#fff_transparent];
 }
 
 .fade-enter-active,
