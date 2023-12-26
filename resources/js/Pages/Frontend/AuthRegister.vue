@@ -56,7 +56,7 @@ const submit = () => {
             type="password"
             class="mt-1 block w-full"
             v-model="form.password"
-            placeholder="請輸入密碼"
+            placeholder="請輸入密碼(最少8碼)"
             minlength="8"
             maxlength="16"
             required
@@ -72,7 +72,7 @@ const submit = () => {
             type="password"
             class="mt-1 block w-full"
             v-model="form.password_confirmation"
-            placeholder="請再次輸入密碼"
+            placeholder="請再次輸入密碼(最少8碼)"
             minlength="8"
             maxlength="16"
             required

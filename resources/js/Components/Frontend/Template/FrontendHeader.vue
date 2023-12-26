@@ -2,11 +2,11 @@
 
 <script setup>
 import { usePage, router } from '@inertiajs/vue3';
+import { onClickOutside } from '@vueuse/core';
 import logoLuminous from '/images/logo/logo-luminous.png';
 import iconShoppingCart from '/images/icon/icon-shopping-cart.svg';
 import iconUser from '/images/icon/icon-user.svg';
 import iconSearch from '/images/icon/icon-search.svg';
-import { onClickOutside } from '@vueuse/core';
 
 const user = computed(() => usePage().props.auth.user);
 const winBidProducts = computed(() => usePage().props.clientWinBidProductList ?? []);
