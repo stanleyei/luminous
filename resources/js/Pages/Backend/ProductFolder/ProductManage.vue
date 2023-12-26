@@ -107,9 +107,14 @@ const deleteProduct = (id) => {
             商品名稱
           </BackendThSortBtn>
         </th>
-        <th scope="col" class="backend-table-th min-w-[180px] w-[180px]">
+        <th scope="col" class="backend-table-th min-w-[100px]">
           <BackendThSortBtn sort-key="sortStartTime">
             開始時間
+          </BackendThSortBtn>
+        </th>
+        <th scope="col" class="backend-table-th min-w-[100px]">
+          <BackendThSortBtn sort-key="sortEndTime">
+            結束時間
           </BackendThSortBtn>
         </th>
         <th scope="col" class="backend-table-th min-w-[120px] w-[120px]">
@@ -133,8 +138,11 @@ const deleteProduct = (id) => {
           <td class="backend-table-td break-all w-[120px]">
             {{ product.name }}
           </td>
-          <td class="backend-table-td break-all w-[120px]">
+          <td class="backend-table-td break-all w-[180px]">
             {{ product.start_time }}
+          </td>
+          <td class="backend-table-td break-all w-[180px]">
+            {{ product.end_time }}
           </td>
           <td class="backend-table-td break-all w-[200px]">
             {{ product.price }}

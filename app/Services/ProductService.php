@@ -21,7 +21,7 @@ class ProductService
     public function getProductList($params)
     {
         $productData = Product::with('productPhotos')
-            ->select('id', 'type', 'name', 'status', 'start_time', 'price', 'featured', 'cover_photo_index', 'created_at')
+            ->select('id', 'type', 'name', 'status', 'start_time', 'end_time', 'price', 'featured', 'cover_photo_index', 'created_at')
             ->where('name', 'like', "%{$params->keywords}%")
             ->when($params->type, fn ($query) => $query->where('type', $params->type));
 
@@ -54,6 +54,8 @@ class ProductService
                     'status' => $item->status,
                     // 競標開始時間
                     'start_time' => date('Y-m-d H:i', strtotime($item->start_time)),
+                    // 競標結束時間
+                    'end_time' => date('Y-m-d H:i', strtotime($item->end_time)),
                     // 商品價格
                     'price' => $item->price,
                     // 商品精選
