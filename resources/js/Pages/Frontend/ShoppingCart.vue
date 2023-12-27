@@ -38,6 +38,20 @@ const showTipAlert = () => {
     }),
   });
 };
+
+/**
+ * 放棄競標商品
+ * @param {number} id - 商品ID
+ */
+const giveUpBidProducts = (id) => {
+  useAlert({
+    content: '是否確定放棄商品？',
+    confirm: () => sendRequest(route('shoppingCart.giveUp'), 'delete', {
+      data: { id },
+      reload: false,
+    }),
+  });
+};
 </script>
 
 <template>
@@ -66,7 +80,9 @@ const showTipAlert = () => {
               <p class="text-start text-red-500 font-bold">NT$ {{ bidProducts.bid_price.toLocaleString() }}</p>
             </div>
           </div>
-          <button type="button" class="p-2 rounded-lg bg-red-600 text-white md:text-base text-sm hover:bg-red-700 transition-colors">放棄商品</button>
+          <button type="button" class="p-2 rounded-lg bg-red-600 text-white md:text-base text-sm hover:bg-red-700 transition-colors" @click="giveUpBidProducts(bidProducts.id)">
+            放棄商品
+          </button>
         </figure>
       </div>
       <div v-else class="flex justify-center">

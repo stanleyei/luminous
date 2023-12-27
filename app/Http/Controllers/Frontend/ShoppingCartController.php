@@ -33,4 +33,23 @@ class ShoppingCartController extends Controller
 
         return back()->with($rtData);
     }
+
+    // 放棄得標
+    public function giveUp(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer|exists:products,id',
+        ]);
+
+        $userClient = $request->user()->userClient;
+
+        $params = (object) [
+            'id' => $request->id,
+            'userClientId' => $userClient->id,
+        ];
+
+        $rtData = $this->shoppingCartService->giveUp($params);
+
+        return back()->with($rtData);
+    }
 }

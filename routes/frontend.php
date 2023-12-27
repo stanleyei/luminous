@@ -24,4 +24,5 @@ Route::prefix('client')->middleware(['auth', 'role.weight:2'])->group(function (
 Route::prefix('shopping-cart')->middleware(['auth', 'role.weight:2'])->group(function () {
     Route::get('/', [ShoppingCartController::class, 'index'])->name('shoppingCart.index');
     Route::post('/pay', [ShoppingCartController::class, 'pay'])->name('shoppingCart.pay');
+    Route::delete('/give-up', [ShoppingCartController::class, 'giveUp'])->name('shoppingCart.giveUp');
 });
