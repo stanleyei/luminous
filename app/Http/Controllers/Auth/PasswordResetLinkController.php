@@ -17,7 +17,7 @@ class PasswordResetLinkController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/ForgotPassword', [
+        return Inertia::render('Frontend/ForgotPassword', [
             'status' => session('status'),
         ]);
     }
@@ -30,15 +30,19 @@ class PasswordResetLinkController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'email' => 'required|email',
-        ]);
+            'email' => 'required|email|exists:users,email',
+        ], ['email.exists' => '查無此帳號']);
 
         // We will send the password reset link to this user. Once we have attempted
         // to send the link, we will examine the response then see the message we
         // need to show to the user. Finally, we'll send out a proper response.
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
+
+        $status = '尚未設定信箱';
+        if (env('MAIL_USERNAME') && env('MAIL_PASSWORD')) {
+            $status = Password::sendResetLink(
+                $request->only('email')
+            );
+        }
 
         if ($status == Password::RESET_LINK_SENT) {
             return back()->with('status', __($status));

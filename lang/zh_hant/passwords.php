@@ -14,7 +14,7 @@ return [
     */
 
     'reset' => 'Your password has been reset!',
-    'sent' => 'We have emailed your password reset link!',
+    'sent' => '已寄出密碼重設信件，請至信箱收取',
     'throttled' => 'Please wait before retrying.',
     'token' => 'This password reset token is invalid.',
     'user' => "查無此信箱",
