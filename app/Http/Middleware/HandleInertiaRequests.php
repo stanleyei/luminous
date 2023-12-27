@@ -49,7 +49,7 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'message' => fn () => $request->session()->get('message'),
             ],
-            'successfulBidProducts' => $this->userClientService->getSuccessfulBidProducts($request->user()),
+            'successfulBidProducts' => $this->userClientService->getSuccessfulBidProducts($request->user(), false),
         ];
     }
 }

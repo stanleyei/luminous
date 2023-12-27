@@ -84,7 +84,7 @@ setInterval(() => {
     <!-- 商品照片 -->
     <section class="flex flex-col gap-y-2 pb-6">
       <figure class="flex items-center md:h-[650px] h-[300px] bg-gray-100">
-        <img :src="selectedPhoto.photo_path" :alt="selectedPhoto.photo_alt" class="h-full mx-auto">
+        <img :src="selectedPhoto.photo_path" :alt="selectedPhoto.photo_alt" class="h-full mx-auto object-contain">
       </figure>
       <aside class="custom-scroll flex gap-2 pb-2 overflow-x-auto">
         <button
@@ -94,7 +94,7 @@ setInterval(() => {
           :class="twMerge('min-w-[72px] w-[72px] min-h-[72px] h-[72px] bg-gray-100 border-2 border-black/30 hover:border-black/50 transition-colors', selectedPhotoIndex === index && 'border-black')"
           @click="selectedPhotoIndex = index"
         >
-          <img :src="photo.photo_path" :alt="photo.photo_alt" class="h-full mx-auto">
+          <img :src="photo.photo_path" :alt="photo.photo_alt" class="h-full mx-auto object-contain">
         </button>
       </aside>
     </section>
@@ -104,7 +104,7 @@ setInterval(() => {
       <button v-if="countDownTime !== '已結標'" type="button" class="w-full py-2 px-8 rounded-lg bg-[#CCCAB1]/70 text-lg font-bold text-main-swamp-green/80 transition-colors hover:bg-[#CCCAB1]" @click="openBidModal">
         我要競標
       </button>
-      <Link v-else :href="route('shoppingCart.index')" class="inline-block w-full py-2 px-8 rounded-lg bg-[#CCCAB1]/70 text-lg font-bold text-main-swamp-green/80 text-center transition-colors hover:bg-[#CCCAB1]">
+      <Link v-else-if="!productData.is_pay" :href="route('shoppingCart.index')" class="inline-block w-full py-2 px-8 rounded-lg bg-[#CCCAB1]/70 text-lg font-bold text-main-swamp-green/80 text-center transition-colors hover:bg-[#CCCAB1]">
         前往結帳
       </Link>
     </section>

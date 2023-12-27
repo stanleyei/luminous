@@ -37,7 +37,7 @@ const submit = () => {
         <label class="block mt-4">
           <TextInput
             id="phone"
-            type="text"
+            type="tel"
             class="mt-1 block w-full"
             v-model="form.phone"
             placeholder="請輸入手機號碼"

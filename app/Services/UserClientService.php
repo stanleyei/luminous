@@ -109,9 +109,10 @@ class UserClientService
     /**
      * 取得中標商品清單資料
      * @param  \App\Models\User $user 使用者資料
+     * @param  bool $paid 是否已付款
      * @return array 中標商品清單資料
      */
-    public function getSuccessfulBidProducts($user)
+    public function getSuccessfulBidProducts($user, $paid = true)
     {
         $userClient = $user?->userClient ?? null;
         if (!$user || !$userClient) return [];
@@ -120,7 +121,7 @@ class UserClientService
 
         // 找出中標商品
         $clientProducts = $clientProducts
-            ->where('is_paid', 0)
+            ->when(!$paid, fn ($query) => $query->where('is_paid', 0))
             ->where('successful_bidder_id', $userClient->id);
 
         $data = $clientProducts->map(function ($item) {

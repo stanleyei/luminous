@@ -60,7 +60,7 @@ class ProductListService
     public function getProductDetailData($params)
     {
         $product = Product::with('productPhotos')
-            ->select('id', 'type', 'name', 'status', 'start_time', 'end_time', 'price', 'successful_bidder_id', 'cover_photo_index', 'description', 'created_at')
+            ->select('id', 'type', 'name', 'status', 'start_time', 'end_time', 'price', 'successful_bidder_id', 'is_paid', 'cover_photo_index', 'description', 'created_at')
             ->where('status', 1)
             ->where('start_time', '<=', now())
             ->find($params->id);
@@ -70,10 +70,10 @@ class ProductListService
         }
 
         // 檢查目前會員是否競標過該產品
-        $is_bid = 0;
+        $is_pay = 0;
         if (auth()->check() && auth()->user()?->userClient) {
             $userClientId = auth()->user()->userClient->id;
-            $is_bid = $product->successful_bidder_id === $userClientId ? 1 : 0;
+            $is_pay = ($product->successful_bidder_id === $userClientId && $product->is_paid) ? 1 : 0;
         }
 
         $data = [
@@ -86,8 +86,8 @@ class ProductListService
                 'end_time' => date('Y-m-d\TH:i:s', strtotime($product->end_time)),
                 // 目前最高競標價格
                 'price' => $product->scopeHeightestPrice(),
-                // 目前會員是否競標過該產品
-                'is_bid' => $is_bid,
+                // 目前會員是否得標該產品且付款
+                'is_pay' => $is_pay,
                 // 商品封面照片 index
                 'cover_photo_index' => $product->cover_photo_index,
                 // 商品描述

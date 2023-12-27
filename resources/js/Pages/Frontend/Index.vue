@@ -67,7 +67,7 @@ watch(
     </section>
 
     <!-- 推薦商品 -->
-    <section class="pt-10 px-4 text-main-swamp-green">
+    <section class="pt-10 pb-20 px-4 text-main-swamp-green">
       <h2 class="flex justify-center mb-5 font-bold">-推薦-</h2>
       <div class="grid @3xl:grid-cols-3 grid-cols-2 gap-4 mx-auto">
         <ProductCard v-for="product in productData" :key="product.id" :product="product">
@@ -80,8 +80,6 @@ watch(
         </Link>
       </div>
     </section>
-
-    <Character />
   </div>
 </template>
 
