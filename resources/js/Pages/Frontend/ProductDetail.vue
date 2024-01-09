@@ -48,7 +48,8 @@ const openBidModal = () => {
   if (!user.value) {
     useAlert({
       type: 'warning',
-      cancelContent: '',
+      content: '請先登入會員',
+      cancelContent: '取消',
       confirmContent: '前往登入',
       confirm: () => router.get(route('login')),
     });
