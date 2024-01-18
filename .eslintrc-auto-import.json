@@ -57,6 +57,7 @@
     "unref": true,
     "useAlertStore": true,
     "useAttrs": true,
+    "useBreadcrumbStore": true,
     "useCssModule": true,
     "useCssVars": true,
     "useParamsStore": true,
@@ -64,7 +65,6 @@
     "watch": true,
     "watchEffect": true,
     "watchPostEffect": true,
-    "watchSyncEffect": true,
-    "useBreadcrumbStore": true
+    "watchSyncEffect": true
   }
 }
