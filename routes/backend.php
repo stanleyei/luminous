@@ -17,42 +17,42 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     })->name('password.edit');
 
     // 後台商品管理
-    Route::prefix('product')->group(function () {
+    Route::prefix('product')->controller(ProductController::class)->group(function () {
         // 後台商品管理列表頁
-        Route::get('/', [ProductController::class, 'index'])->name('product.list');
+        Route::get('/', 'index')->name('product.list');
         // 後台商品管理新增編輯頁
-        Route::get('edit', [ProductController::class, 'edit'])->name('product.edit');
+        Route::get('edit', 'edit')->name('product.edit');
         // 新增商品
-        Route::post('store', [ProductController::class, 'store'])->name('product.store');
+        Route::post('store', 'store')->name('product.store');
         // 更新商品
-        Route::put('update', [ProductController::class, 'update'])->name('product.update');
+        Route::put('update', 'update')->name('product.update');
         // 更新商品狀態
-        Route::put('update-status', [ProductController::class, 'updateStatus'])->name('product.status');
+        Route::put('update-status', 'updateStatus')->name('product.status');
         // 更新商品精選狀態
-        Route::put('update-featured', [ProductController::class, 'updateFeatured'])->name('product.featured');
+        Route::put('update-featured', 'updateFeatured')->name('product.featured');
         // 刪除商品
-        Route::delete('destroy', [ProductController::class, 'destroy'])->name('product.destroy');
+        Route::delete('destroy', 'destroy')->name('product.destroy');
         // 上傳商品照片
-        Route::post('upload-photo', [ProductController::class, 'uploadPhoto'])->name('product.upload');
+        Route::post('upload-photo', 'uploadPhoto')->name('product.upload');
     });
 
     // 後台會員管理
-    Route::prefix('client')->group(function () {
+    Route::prefix('client')->controller(UserClientController::class)->group(function () {
         // 後台會員管理列表頁
-        Route::get('/', [UserClientController::class, 'index'])->name('client.list');
+        Route::get('/', 'index')->name('client.list');
         // 後台會員管理預覽頁
-        Route::get('preview', [UserClientController::class, 'preview'])->name('client.preview');
+        Route::get('preview', 'preview')->name('client.preview');
         // 切換會員狀態
-        Route::put('toggle-status', [UserClientController::class, 'toggleStatus'])->name('client.status');
+        Route::put('toggle-status', 'toggleStatus')->name('client.status');
     });
 
     // 後台 Banner 管理
-    Route::prefix('banner')->group(function () {
+    Route::prefix('banner')->controller(BannerController::class)->group(function () {
         // 後台 Banner 管理列表頁
-        Route::get('/', [BannerController::class, 'index'])->name('banner.list');
+        Route::get('/', 'index')->name('banner.list');
         // 後台 Banner 管理編輯頁
-        Route::get('edit', [BannerController::class, 'edit'])->name('banner.edit');
+        Route::get('edit', 'edit')->name('banner.edit');
         // 更新 Banner
-        Route::put('update', [BannerController::class, 'update'])->name('banner.update');
+        Route::put('update', 'update')->name('banner.update');
     });
 });
