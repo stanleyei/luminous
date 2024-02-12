@@ -25,6 +25,6 @@ const changeSort = () => {
 <template>
   <button type="button" class="flex items-center justify-center gap-3 mx-auto" @click="changeSort">
     <slot />
-    <div :class="twMerge('w-[8px] h-[8px] border-r border-b border-current rotate-45', { '-rotate-[45deg]': isActive })"></div>
+    <div :class="twMerge('w-[8px] h-[8px] border-r border-b border-current rotate-45', isActive && '-rotate-[135deg]')"></div>
   </button>
 </template>
