@@ -1,6 +1,7 @@
 <script setup>
 import { useForm, usePage } from '@inertiajs/vue3';
 import { getLocal } from '@/Composables/useStorage';
+import VueTurnstile from 'vue-turnstile';
 
 defineProps({
   canResetPassword: {
@@ -26,6 +27,8 @@ const form = useForm({
   password: '',
   remember: false,
 });
+const token = ref('');
+const isDevelopment = import.meta.env.MODE === 'development';
 
 /**
  * 當記住密碼被勾選且送出時，將密碼儲存至 localStorage
@@ -99,6 +102,8 @@ watch(
           <InputError class="mt-2" :message="form.errors.password" />
         </label>
 
+        <VueTurnstile v-if="!isDevelopment" site-key="0x4AAAAAAAVsHS6n3Ag_6s6E" v-model="token" theme="light" />
+
         <div class="block mt-4">
           <label class="flex items-center cursor-pointer">
             <Checkbox v-model:checked="form.remember" class="cursor-pointer text-main-swamp-green/80" />
@@ -109,12 +114,14 @@ watch(
         <div class="mt-14">
           <div class="flex justify-center">
             <PrimaryButton
+              v-if="token || isDevelopment"
               class="py-2 !px-20 !bg-main-yellow !text-main-swamp-green"
               :class="{ 'opacity-25': form.processing }"
               :disabled="form.processing"
             >
               登入
             </PrimaryButton>
+            <div v-else class="py-2 px-20 text-center bg-main-yellow text-main-swamp-green">驗證中</div>
           </div>
 
           <div class="flex justify-center pt-2">
