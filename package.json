@@ -43,12 +43,13 @@
     "dependencies": {
         "@splinetool/runtime": "^1.0.16",
         "@tailwindcss/container-queries": "^0.1.1",
-        "@tinymce/tinymce-vue": "^5.1.1",
+        "@tinymce/tinymce-vue": "^4.0.4",
         "@vuepic/vue-datepicker": "^7.3.0",
         "@vueuse/core": "^10.7.0",
         "pinia": "^2.1.7",
         "swiper": "^11.0.5",
         "tailwind-merge": "^2.0.0",
-        "tinymce": "^6.8.1"
+        "tinymce": "^7.0.0",
+        "vue-turnstile": "^1.0.8"
     }
 }
