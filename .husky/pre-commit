@@ -1,5 +1,9 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npx.cmd lint-staged
+if [ "$(expr substr $(uname -s) 1 5)" == "MINGW" ]; then
+  npx.cmd lint-staged
+else
+  npx lint-staged
+fi
 vendor/bin/phpcbf;vendor/bin/phpcs
